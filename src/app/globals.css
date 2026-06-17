@@ -1,26 +1,308 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Vercel-aligned design tokens (custom properties)
+   ============================================================ */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Neutral scale */
+  --ds-gray-1000: #000000;
+  --ds-gray-900: #171717;
+  --ds-gray-600: #4d4d4d;
+  --ds-gray-500: #666666;
+  --ds-gray-400: #808080;
+  --ds-gray-200: #d4d4d4;
+  --ds-gray-100: #ebebeb;
+  --ds-gray-50: #fafafa;
+
+  /* Accents (functional only) */
+  --ds-verified: #00C853;     /* badge VERIFICATO */
+  --ds-unclaimed: #808080;    /* badge NON VERIFICATO */
+  --ds-link: #0072f5;
+  --ds-focus: hsla(212, 100%, 48%, 1);
+
+  /* Shadows */
+  --shadow-border: rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  --shadow-soft: rgba(0, 0, 0, 0.04) 0px 2px 2px;
+  --shadow-card:
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px,
+    rgba(0, 0, 0, 0.04) 0px 2px 2px,
+    rgba(0, 0, 0, 0.04) 0px 8px 8px -8px,
+    #fafafa 0px 0px 0px 1px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+
+  --color-gray-1000: var(--ds-gray-1000);
+  --color-gray-900: var(--ds-gray-900);
+  --color-gray-600: var(--ds-gray-600);
+  --color-gray-500: var(--ds-gray-500);
+  --color-gray-400: var(--ds-gray-400);
+  --color-gray-200: var(--ds-gray-200);
+  --color-gray-100: var(--ds-gray-100);
+  --color-gray-50: var(--ds-gray-50);
+
+  --color-verified: var(--ds-verified);
+  --color-unclaimed: var(--ds-unclaimed);
+  --color-link: var(--ds-link);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+/* ============================================================
+   Typography (Vercel-inspired tight tracking)
+   ============================================================ */
+.text-display {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.06em;
+}
+.text-h1 {
+  font-size: clamp(1.875rem, 3.5vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+.text-h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+.text-h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.33;
+  letter-spacing: -0.015em;
+}
+.text-eyebrow {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ds-gray-500);
+}
+
+/* ============================================================
+   Components — Shadow-as-border pattern
+   ============================================================ */
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+}
+
+.card-flat {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: var(--shadow-border);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--ds-gray-900);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: background 120ms ease;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--ds-gray-1000);
+}
+.btn-primary:focus-visible {
+  outline: 2px solid var(--ds-focus);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #ffffff;
+  color: var(--ds-gray-900);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-border);
+  transition: background 120ms ease;
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background: var(--ds-gray-50);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--ds-focus);
+  outline-offset: 2px;
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--ds-gray-900);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+.btn-ghost:hover {
+  background: var(--ds-gray-50);
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  background: #ffffff;
+  color: var(--ds-gray-900);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-border);
+  transition: box-shadow 120ms ease;
+}
+.input::placeholder {
+  color: var(--ds-gray-400);
+}
+.input:focus {
+  outline: none;
+  box-shadow: var(--shadow-border), 0 0 0 2px var(--ds-focus);
+}
+
+.select {
+  width: 100%;
+  background: #ffffff;
+  color: var(--ds-gray-900);
+  border-radius: 6px;
+  padding: 0.5rem 2rem 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  box-shadow: var(--shadow-border);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23171717' stroke-width='1.5' d='M3 4.5l3 3 3-3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.625rem center;
+  cursor: pointer;
+}
+.select:focus {
+  outline: none;
+  box-shadow: var(--shadow-border), 0 0 0 2px var(--ds-focus);
+}
+
+/* Pill badges */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  box-shadow: var(--shadow-border);
+  background: #ffffff;
+  color: var(--ds-gray-900);
+}
+
+.pill-verified {
+  background: #ecfdf5;
+  color: #047857;
+}
+.pill-unclaimed {
+  background: var(--ds-gray-50);
+  color: var(--ds-gray-600);
+}
+
+/* ============================================================
+   Utility helpers
+   ============================================================ */
+.divider {
+  height: 1px;
+  background: var(--ds-gray-100);
+  border: 0;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--ds-focus);
+  outline-offset: 2px;
+}
+
+/* Scrollbar — slim and quiet */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--ds-gray-100);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ds-gray-200);
+}
+
+/* Checkbox custom (Vercel-style: square, tight) */
+input[type="checkbox"] {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  background: #ffffff;
+  box-shadow: var(--shadow-border);
+  cursor: pointer;
+  flex-shrink: 0;
+  position: relative;
+  transition: background 80ms ease;
+}
+input[type="checkbox"]:checked {
+  background: var(--ds-gray-900);
+}
+input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3E%3Cpath d='M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+}
+input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--ds-focus);
+  outline-offset: 2px;
 }
