@@ -1,0 +1,314 @@
+[
+  {
+    "ragione_sociale": "Bdogs Centro Cinofilo di Michael Tamanti",
+    "brand_name": "Bdogs",
+    "slug": "bdogs-centro-cinofilo-pesaro",
+    "indirizzo": "Strada delle Marche, 12",
+    "comune": "Pesaro",
+    "cap": "61122",
+    "provincia_id": 68,
+    "coordinate_gps": "POINT(12.9056 43.9098)",
+    "telefono": "+39 0721 123456",
+    "email": "info@bdogs.it",
+    "sito_web": "https://www.bdogs.it",
+    "social_links": {
+      "instagram": "https://instagram.com/bdogs.cinofilo"
+    },
+    "descrizione": "Centro cinofilo a Pesaro specializzato in educazione cognitivo-relazionale e addestramento gentile. Corsi per cuccioli, socializzazione, attività sportive e recupero comportamentale. Approccio etico e scientifico.",
+    "metodologie": [
+      1,
+      2
+    ],
+    "discipline": [
+      6,
+      8,
+      7,
+      3
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      2
+    ]
+  },
+  {
+    "ragione_sociale": "Asd Cinofilia Marchigiana",
+    "brand_name": "Cinofilia Marchigiana",
+    "slug": "cinofilia-marchigiana-ancona",
+    "indirizzo": "Via della Montagnola, 45",
+    "comune": "Ancona",
+    "cap": "60127",
+    "provincia_id": 3,
+    "coordinate_gps": "POINT(13.5104 43.6158)",
+    "telefono": "+39 071 876543",
+    "email": "info@cinofiliamarchigiana.it",
+    "sito_web": "https://www.cinofiliamarchigiana.it",
+    "social_links": {
+      "facebook": "https://facebook.com/cinofiliamarchigiana"
+    },
+    "descrizione": "Associazione sportiva dilettantistica con focus su discipline cinofile sportive: Agility, Rally-O, Hoopers. Campo recintato e struttura coperta. Istruttori certificati.",
+    "metodologie": [
+      1
+    ],
+    "discipline": [
+      1,
+      2,
+      3
+    ],
+    "infrastrutture": [
+      1,
+      2
+    ],
+    "affiliazioni": [
+      1
+    ]
+  },
+  {
+    "ragione_sociale": "Dog's Lab - Centro Cinofilo Senigallia",
+    "brand_name": "Dog's Lab",
+    "slug": "dogs-lab-senigallia",
+    "indirizzo": "Via Podesti, 8",
+    "comune": "Senigallia",
+    "cap": "60019",
+    "provincia_id": 3,
+    "coordinate_gps": "POINT(13.2176 43.7150)",
+    "telefono": "+39 071 654321",
+    "email": "info@dogslab.it",
+    "sito_web": null,
+    "social_links": {
+      "instagram": "https://instagram.com/dogslab_senigallia"
+    },
+    "descrizione": "Centro cinofilo a Senigallia che propone educazione di base, classi cuccioli e percorsi di socializzazione. Metodo gentile e approccio cognitivo-relazionale. Recupero comportamentale con supporto di educatore certificato.",
+    "metodologie": [
+      2
+    ],
+    "discipline": [
+      8,
+      6,
+      7
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      2
+    ]
+  },
+  {
+    "ragione_sociale": "Happy Dog Pesaro",
+    "brand_name": "Happy Dog",
+    "slug": "happy-dog-pesaro",
+    "indirizzo": "Via Toscana, 23",
+    "comune": "Pesaro",
+    "cap": "61121",
+    "provincia_id": 68,
+    "coordinate_gps": "POINT(12.3927 43.9028)",
+    "telefono": "+39 0721 234567",
+    "email": "info@happydogpesaro.it",
+    "sito_web": "https://www.happydogpesaro.it",
+    "social_links": {
+      "facebook": "https://facebook.com/happydogpesaro",
+      "instagram": "https://instagram.com/happydogpesaro"
+    },
+    "descrizione": "Pensione e asilo diurno per cani con servizi di educazione. Aree verdi recintate per socializzazione. Possibilità di day-care e long-stay con personale formato.",
+    "metodologie": [
+      1,
+      2
+    ],
+    "discipline": [
+      6,
+      8
+    ],
+    "infrastrutture": [
+      2,
+      4
+    ],
+    "affiliazioni": [
+      4
+    ]
+  },
+  {
+    "ragione_sociale": "Aquatic Dog Fano - Piscina Cinofila",
+    "brand_name": "Aquatic Dog Fano",
+    "slug": "aquatic-dog-fano",
+    "indirizzo": "Via del Lavoro, 14",
+    "comune": "Fano",
+    "cap": "61032",
+    "provincia_id": 68,
+    "coordinate_gps": "POINT(13.0066 43.8395)",
+    "telefono": "+39 0721 345678",
+    "email": "info@aquaticdogfano.it",
+    "sito_web": "https://www.aquaticdogfano.it",
+    "social_links": {
+      "instagram": "https://instagram.com/aquaticdogfano"
+    },
+    "descrizione": "Unica struttura nelle Marche con piscina cinofila dedicata. Attività di nuoto riabilitativo per cani con problemi ortopedici, dimagrimento e recupero post-chirurgico. Istruttori specializzati.",
+    "metodologie": [
+      1
+    ],
+    "discipline": [
+      5
+    ],
+    "infrastrutture": [
+      3
+    ],
+    "affiliazioni": [
+      3
+    ]
+  },
+  {
+    "ragione_sociale": "Il Branco - Centro Cinofilo Macerata",
+    "brand_name": "Il Branco",
+    "slug": "il-branco-macerata",
+    "indirizzo": "Contrada Valle, 5",
+    "comune": "Macerata",
+    "cap": "62100",
+    "provincia_id": 51,
+    "coordinate_gps": "POINT(13.4539 43.3007)",
+    "telefono": "+39 0733 123456",
+    "email": "info@ilbranco.it",
+    "sito_web": "https://www.ilbranco.it",
+    "social_links": {
+      "facebook": "https://facebook.com/ilbranco.cinofilia"
+    },
+    "descrizione": "Centro cinofilo a Macerata con approccio cognitivo-relazionale. Educazione di base, cuccioli, percorsi individuali per cani con difficoltà. Piccoli gruppi, attenzione personalizzata.",
+    "metodologie": [
+      1,
+      2
+    ],
+    "discipline": [
+      8,
+      6,
+      7
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      1
+    ]
+  },
+  {
+    "ragione_sociale": "Nose Work Italia - Sede Fermo",
+    "brand_name": "Nose Work Italia",
+    "slug": "nose-work-italia-fermo",
+    "indirizzo": "Via Piave, 67",
+    "comune": "Fermo",
+    "cap": "63900",
+    "provincia_id": 32,
+    "coordinate_gps": "POINT(13.7189 43.1626)",
+    "telefono": "+39 0734 234567",
+    "email": "fermo@noseworkitalia.it",
+    "sito_web": "https://www.noseworkitalia.it",
+    "social_links": {
+      "instagram": "https://instagram.com/noseworkitalia"
+    },
+    "descrizione": "Specializzati in Nosework e ricerca olfattiva. Percorsi progressivi per cani sportivi e per cani che necessitano di arricchimento sensoriale. Istruttori certificati.",
+    "metodologie": [
+      1
+    ],
+    "discipline": [
+      4
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      1
+    ]
+  },
+  {
+    "ragione_sociale": "Asd Agility Dog Riviera delle Palme",
+    "brand_name": "Agility Riviera",
+    "slug": "agility-riviera-ascoli-piceno",
+    "indirizzo": "Via Mare, 88",
+    "comune": "San Benedetto del Tronto",
+    "cap": "63074",
+    "provincia_id": 6,
+    "coordinate_gps": "POINT(13.8787 42.9456)",
+    "telefono": "+39 0735 345678",
+    "email": "info@agilityriviera.it",
+    "sito_web": null,
+    "social_links": {
+      "facebook": "https://facebook.com/agilityriviera"
+    },
+    "descrizione": "Associazione sportiva dilettantistica di Agility Dog sulla Riviera delle Palme. Campo regolamentare, gare, corsi base e avanzati. Attività per bambini e ragazzi.",
+    "metodologie": [
+      3
+    ],
+    "discipline": [
+      1
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      1
+    ]
+  },
+  {
+    "ragione_sociale": "Cani Felici - Educazione e Asilo",
+    "brand_name": "Cani Felici",
+    "slug": "cani-felici-jesi",
+    "indirizzo": "Via dell'Industria, 32",
+    "comune": "Jesi",
+    "cap": "60035",
+    "provincia_id": 3,
+    "coordinate_gps": "POINT(13.2434 43.5224)",
+    "telefono": "+39 0731 456789",
+    "email": "info@canifelici.it",
+    "sito_web": "https://www.canifelici.it",
+    "social_links": {
+      "instagram": "https://instagram.com/canifelici",
+      "facebook": "https://facebook.com/canifelici"
+    },
+    "descrizione": "Centro che combina educazione cinofila e servizio di asilo diurno. Metodo gentile, classi per cuccioli, socializzazione, gestione del cane in ambiente urbano. Personale formato.",
+    "metodologie": [
+      2
+    ],
+    "discipline": [
+      8,
+      6
+    ],
+    "infrastrutture": [
+      4,
+      2
+    ],
+    "affiliazioni": [
+      4
+    ]
+  },
+  {
+    "ragione_sociale": "Centro Cinofilo Urbinate",
+    "brand_name": "CCU",
+    "slug": "centro-cinofilo-urbinate",
+    "indirizzo": "Via dei Mille, 19",
+    "comune": "Urbino",
+    "cap": "61029",
+    "provincia_id": 68,
+    "coordinate_gps": "POINT(12.6384 43.7253)",
+    "telefono": "+39 0722 567890",
+    "email": "info@ccu-urbino.it",
+    "sito_web": null,
+    "social_links": {
+      "facebook": "https://facebook.com/ccu.urbino"
+    },
+    "descrizione": "Centro cinofilo nella zona di Urbino. Educazione di base, socializzazione, percorsi per cuccioli. Approccio cognitivo-relazionale e collaborazione con veterinari del territorio per percorsi di recupero.",
+    "metodologie": [
+      1,
+      2
+    ],
+    "discipline": [
+      8,
+      6,
+      7
+    ],
+    "infrastrutture": [
+      2
+    ],
+    "affiliazioni": [
+      2
+    ]
+  }
+]
