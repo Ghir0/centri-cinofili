@@ -220,12 +220,10 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                       <span className="mt-0.5 text-[color:var(--ds-verified)]">
                         <IconCheck />
                       </span>
-                      <div>
-                        <div className="text-sm font-medium text-[color:var(--ds-gray-900)]">
-                          {m.nome}
-                        </div>
+                      <div className="flex-1">
+                        <span className="pill pill-method">{m.nome}</span>
                         {m.descrizione && (
-                          <div className="text-xs text-[color:var(--ds-gray-500)] mt-0.5">
+                          <div className="text-xs text-[color:var(--ds-gray-500)] mt-1.5">
                             {m.descrizione}
                           </div>
                         )}
@@ -240,16 +238,13 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
             {centro.infrastrutture.length > 0 && (
               <section className="card p-6">
                 <div className="text-eyebrow mb-4">Infrastrutture</div>
-                <ul className="space-y-2.5">
+                <div className="flex flex-wrap gap-1.5">
                   {centro.infrastrutture.map((i) => (
-                    <li key={i.id} className="flex items-start gap-2.5">
-                      <span className="mt-0.5 text-[color:var(--ds-verified)]">
-                        <IconCheck />
-                      </span>
-                      <div className="text-sm text-[color:var(--ds-gray-900)]">{i.nome}</div>
-                    </li>
+                    <span key={i.id} className="pill pill-infra">
+                      {i.nome}
+                    </span>
                   ))}
-                </ul>
+                </div>
               </section>
             )}
 
@@ -259,7 +254,7 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                 <div className="text-eyebrow mb-4">Attività e discipline</div>
                 <div className="flex flex-wrap gap-1.5">
                   {centro.discipline.map((d) => (
-                    <span key={d.id} className="pill">
+                    <span key={d.id} className="pill pill-discipline">
                       {d.nome}
                     </span>
                   ))}
@@ -278,13 +273,11 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                         <IconCheck />
                       </span>
                       <div>
-                        <div className="text-sm font-medium text-[color:var(--ds-gray-900)]">
-                          {a.nome}
-                        </div>
+                        <span className="pill pill-affil mr-2">{a.nome}</span>
                         {a.ente_ufficiale && (
-                          <div className="text-xs text-[color:var(--ds-gray-500)] mt-0.5 font-mono">
+                          <span className="text-xs text-[color:var(--ds-gray-500)] font-mono">
                             {a.ente_ufficiale}
-                          </div>
+                          </span>
                         )}
                       </div>
                     </li>

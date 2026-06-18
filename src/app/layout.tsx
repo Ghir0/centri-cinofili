@@ -53,14 +53,11 @@ export default function RootLayout({
               © {new Date().getFullYear()} Centri Cinofili Italia · Dati aperti, licenza CC BY 4.0
             </div>
             <nav className="flex items-center gap-5 text-sm">
+              <a href="/" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
+                Cerca
+              </a>
               <a href="/centri-cinofili/" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
                 Directory
-              </a>
-              <a href="/metodo/cognitivo-relazionale/" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
-                Metodi
-              </a>
-              <a href="/about" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
-                About
               </a>
             </nav>
           </div>

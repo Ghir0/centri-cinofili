@@ -247,6 +247,20 @@ body {
   color: var(--ds-gray-600);
 }
 
+/* Colored taxonomy chips */
+.pill-method {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+.pill-discipline {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+.pill-infra {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
 /* ============================================================
    Utility helpers
    ============================================================ */

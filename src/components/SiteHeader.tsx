@@ -2,7 +2,7 @@ import Link from "next/link";
 
 /**
  * SiteHeader — top-level navigation, sticky, white background, subtle border.
- * Logo + 3 link primari + CTA "Inserisci centro".
+ * Logo + nav Cerca/Directory + CTA "Inserisci centro".
  */
 export function SiteHeader() {
   return (
@@ -16,33 +16,32 @@ export function SiteHeader() {
             ◎
           </span>
           <span className="text-[15px] font-semibold tracking-tight">
-            Centri Cinofili <span className="text-[color:var(--ds-gray-500)] font-normal">Italia</span>
+            Centri Cinofili{" "}
+            <span className="text-[color:var(--ds-gray-500)] font-normal">
+              Italia
+            </span>
           </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm">
+          <Link
+            href="/"
+            className="text-[color:var(--ds-gray-900)] font-medium hover:underline decoration-[color:var(--ds-gray-400)] underline-offset-4"
+          >
+            Cerca
+          </Link>
           <Link
             href="/centri-cinofili/"
             className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)] transition-colors"
           >
             Directory
           </Link>
-          <Link
-            href="/centri-cinofili/metodo/cognitivo-relazionale/"
-            className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)] transition-colors"
-          >
-            Metodi
-          </Link>
-          <Link
-            href="/centri-cinofili/marche/"
-            className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)] transition-colors"
-          >
-            Regioni
-          </Link>
         </nav>
 
         <Link href="/inserisci" className="btn-primary">
-          <span aria-hidden className="text-base leading-none">+</span>
+          <span aria-hidden className="text-base leading-none">
+            +
+          </span>
           <span className="hidden sm:inline">Inserisci centro</span>
           <span className="sm:hidden">Inserisci</span>
         </Link>

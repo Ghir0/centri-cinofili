@@ -50,3 +50,4 @@ Thumbs.db
 .idea/
 # Logs
 *.log
+__pycache__/
