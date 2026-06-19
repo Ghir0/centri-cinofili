@@ -30,6 +30,12 @@ export function SiteHeader() {
           >
             Cerca
           </Link>
+          <Link
+            href="/mappa"
+            className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)] hover:underline decoration-[color:var(--ds-gray-400)] underline-offset-4"
+          >
+            Mappa
+          </Link>
         </nav>
 
         <Link href="/inserisci" className="btn-primary">

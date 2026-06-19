@@ -167,7 +167,7 @@ export function CentroCard({ centro }: { centro: SearchResult }) {
       {/* Infrastrutture — chip arancio, max 3 */}
       {centro.infrastrutture.length > 0 && (
         <div>
-          <div className="text-eyebrow mb-2">Struttura</div>
+          <div className="text-eyebrow mb-2">Strutture</div>
           <div className="flex flex-wrap gap-1.5">
             {centro.infrastrutture.slice(0, 3).map((i) => (
               <span key={i.slug} className="pill pill-infra">

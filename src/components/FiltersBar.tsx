@@ -194,7 +194,7 @@ export function FiltersBar({
         />
 
         <MultiSelectDropdown
-          label="Discipline"
+          label="Attività"
           options={discipline}
           selected={(slug) => isOn("disciplina", slug)}
           onToggle={(slug) => toggleMulti("disciplina", slug)}
@@ -204,7 +204,7 @@ export function FiltersBar({
         />
 
         <MultiSelectDropdown
-          label="Infrastrutture"
+          label="Strutture"
           options={infrastrutture}
           selected={(slug) => isOn("infrastruttura", slug)}
           onToggle={(slug) => toggleMulti("infrastruttura", slug)}

@@ -229,7 +229,7 @@ export function FiltersSidebar({
 
       {/* Discipline */}
       <CheckboxGroup
-        label="Discipline e attività"
+        label="Attività"
         options={discipline}
         selected={(slug) => isOn("disciplina", slug)}
         onToggle={(slug) => toggleMulti("disciplina", slug)}
@@ -238,7 +238,7 @@ export function FiltersSidebar({
 
       {/* Infrastrutture */}
       <CheckboxGroup
-        label="Infrastrutture e comfort"
+        label="Strutture"
         options={infrastrutture}
         selected={(slug) => isOn("infrastruttura", slug)}
         onToggle={(slug) => toggleMulti("infrastruttura", slug)}

@@ -234,10 +234,10 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
               </section>
             )}
 
-            {/* Infrastrutture */}
+            {/* Strutture */}
             {centro.infrastrutture.length > 0 && (
               <section className="card p-6">
-                <div className="text-eyebrow mb-4">Infrastrutture</div>
+                <div className="text-eyebrow mb-4">Strutture</div>
                 <div className="flex flex-wrap gap-1.5">
                   {centro.infrastrutture.map((i) => (
                     <span key={i.id} className="pill pill-infra">
@@ -251,7 +251,7 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
             {/* Discipline */}
             {centro.discipline.length > 0 && (
               <section className="card p-6">
-                <div className="text-eyebrow mb-4">Attività e discipline</div>
+                <div className="text-eyebrow mb-4">Attività</div>
                 <div className="flex flex-wrap gap-1.5">
                   {centro.discipline.map((d) => (
                     <span key={d.id} className="pill pill-discipline">

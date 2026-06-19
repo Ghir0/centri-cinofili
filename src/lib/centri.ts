@@ -62,6 +62,17 @@ function textArrayToTaxonomy(arr: string[] | null | undefined): { nome: string; 
   return arr.map((nome) => ({ nome, slug: nome.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }))
 }
 
+/** Parsa coordinate_gps da qualsiasi formato (WKB hex, GeoJSON, {lat,lon}). */
+function parseCoordinateGps(raw: any): { lat: number; lon: number } | null {
+  if (!raw) return null
+  if (typeof raw === 'object' && 'lat' in raw && 'lon' in raw) return raw
+  if (typeof raw === 'object' && 'coordinates' in raw) {
+    return { lat: raw.coordinates[1], lon: raw.coordinates[0] }
+  }
+  if (typeof raw === 'string') return parseWkbHex(raw)
+  return null
+}
+
 export async function getCentroBySlug(slug: string): Promise<CentroExpanded | null> {
   const supabase = await createClient()
 
@@ -72,13 +83,13 @@ export async function getCentroBySlug(slug: string): Promise<CentroExpanded | nu
       provincia:provincia_id(*,
         regione:regione_id(*)
       ),
-      metodologie:centri_metodologie(
+      metodologie_junc:centri_metodologie(
         metodologia:metodologia_id(*)
       ),
-      discipline:centri_discipline(
+      discipline_junc:centri_discipline(
         disciplina:disciplina_id(*)
       ),
-      infrastrutture:centri_infrastrutture(
+      infrastrutture_junc:centri_infrastrutture(
         infrastruttura:infrastruttura_id(*)
       ),
       affiliazioni:centri_affiliazioni(
@@ -130,12 +141,12 @@ export async function getCentroBySlug(slug: string): Promise<CentroExpanded | nu
 
   // Unisci dati junction con array colonne centri (scraper data)
   const raw = centro as any
-  const junctionMetodologie = (centro.metodologie || []).map((m: any) => m.metodologia || m)
-  const junctionDiscipline = (centro.discipline || []).map((d: any) => d.disciplina || d)
-  const junctionInfrastrutture = (centro.infrastrutture || []).map((i: any) => i.infrastruttura || i)
+  const junctionMetodologie = ((raw.metodologie_junc || []) as any[]).map((m: any) => m.metodologia || m)
+  const junctionDiscipline = ((raw.discipline_junc || []) as any[]).map((d: any) => d.disciplina || d)
+  const junctionInfrastrutture = ((raw.infrastrutture_junc || []) as any[]).map((i: any) => i.infrastruttura || i)
   const junctionAffiliazioni = (centro.affiliazioni || []).map((a: any) => a.affiliazione || a)
 
-  // Se junction è vuota ma centri ha array, usa quelli
+  // Colonne text[] dalla tabella centri (scraper data) — ora non più sovrascritte dalle join
   const scrapedMetodologie = textArrayToTaxonomy(raw.metodologie)
   const scrapedDiscipline = textArrayToTaxonomy(raw.discipline)
   const scrapedInfrastrutture = textArrayToTaxonomy(raw.infrastrutture)
@@ -185,6 +196,7 @@ export interface SearchResult {
   claimed: boolean
   rating_medio: number | null
   num_recensioni: number
+  coordinate_gps: { lat: number; lon: number } | null
   metodologie: { nome: string; slug: string }[]
   discipline: { nome: string; slug: string }[]
   infrastrutture: { nome: string; slug: string }[]
@@ -271,6 +283,7 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
       indirizzo, comune, cap,
       claimed_by, claim_status,
       metodologie, discipline, infrastrutture,
+      coordinate_gps,
       provincia:provincia_id(id, nome, slug, sigla,
         regione:regione_id(id, nome, slug)
       )
@@ -363,6 +376,7 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
       claimed: !!r.claimed_by,
       rating_medio: rec && rec.n > 0 ? Math.round((rec.sum / rec.n) * 10) / 10 : null,
       num_recensioni: rec?.n ?? 0,
+      coordinate_gps: parseCoordinateGps(raw.coordinate_gps),
       // Priority: junction data if available, else scraped centri-level arrays
       metodologie: metodMap.get(r.id)?.length ? metodMap.get(r.id)! : textArrayToTaxonomy(raw.metodologie),
       discipline: discMap.get(r.id)?.length ? discMap.get(r.id)! : textArrayToTaxonomy(raw.discipline),
