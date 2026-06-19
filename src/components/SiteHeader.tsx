@@ -8,7 +8,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-[color:var(--ds-gray-100)]">
+      <header className="sticky top-0 z-[1100] bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-[color:var(--ds-gray-100)]">
         <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2.5 group">
             <span

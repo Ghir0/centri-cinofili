@@ -190,7 +190,7 @@ export function SearchModal({
       {/* Modal overlay */}
       {open && (
         <div
-          className={`fixed inset-0 z-[9998] flex items-start justify-center pt-[10vh] ${
+          className={`fixed inset-0 z-[9998] flex items-start justify-center md:pt-[10vh] ${
             animating ? 'opacity-100' : 'opacity-0'
           } transition-opacity duration-200`}
           onClick={close}
@@ -200,9 +200,9 @@ export function SearchModal({
 
           {/* Modal card */}
           <div
-            className={`relative z-10 w-full max-w-3xl mx-4 bg-white rounded-2xl shadow-2xl border border-[color:var(--ds-gray-100)] overflow-hidden ${
+            className={`relative z-10 w-full max-w-3xl bg-white shadow-2xl border border-[color:var(--ds-gray-100)] overflow-hidden max-md:mx-0 max-md:max-w-full max-md:rounded-none max-md:h-full md:mx-4 md:rounded-2xl md:max-h-[85vh] flex flex-col ${
               animating ? 'scale-100 translate-y-0 opacity-100' : 'scale-95 translate-y-4 opacity-0'
-            } transition-all duration-300 ease-out max-h-[85vh] flex flex-col`}
+            } transition-all duration-300 ease-out`}
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header — search bar */}
@@ -359,9 +359,20 @@ export function SearchModal({
 
             {/* Footer */}
             <div className="px-6 py-3 bg-[color:var(--ds-gray-50)] border-t border-[color:var(--ds-gray-100)] shrink-0">
-              <div className="flex items-center justify-between text-xs text-[color:var(--ds-gray-400)]">
+              {/* Desktop: keyboard hints */}
+              <div className="hidden md:flex items-center justify-between text-xs text-[color:var(--ds-gray-400)]">
                 <span>Premi <kbd className="px-1 py-0.5 bg-white rounded border border-[color:var(--ds-gray-200)] text-[10px]">Enter</kbd> per cercare</span>
                 <span><kbd className="px-1 py-0.5 bg-white rounded border border-[color:var(--ds-gray-200)] text-[10px]">Esc</kbd> per chiudere</span>
+              </div>
+              {/* Mobile: search button */}
+              <div className="md:hidden">
+                <button
+                  type="button"
+                  onClick={submit}
+                  className="w-full btn-primary h-10 text-sm"
+                >
+                  Cerca
+                </button>
               </div>
             </div>
           </div>
