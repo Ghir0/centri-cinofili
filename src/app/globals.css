@@ -260,6 +260,10 @@ body {
   background: #fff7ed;
   color: #c2410c;
 }
+.pill-affil {
+  background: #f0fdf4;
+  color: #166534;
+}
 
 /* ============================================================
    Utility helpers

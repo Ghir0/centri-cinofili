@@ -1,9 +1,8 @@
 import { Suspense } from "react";
 import { searchCentri, getTassonomieForFilters, getProvinceByRegione } from "@/lib/centri";
-import { FiltersSidebar } from "@/components/FiltersSidebar";
+import { FiltersBar } from "@/components/FiltersBar";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { ActiveFiltersBar } from "@/components/ActiveFiltersBar";
-import { SortSelector } from "@/components/SortSelector";
 
 // Force dynamic rendering because we read searchParams
 export const dynamic = "force-dynamic";
@@ -88,55 +87,43 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      {/* Layout: sidebar filtri (sinistra) + risultati (destra) */}
+      {/* Horizontal filter bar + results */}
       <section className="mx-auto max-w-7xl px-6 py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-6">
-          {/* Sidebar */}
-          <Suspense fallback={<div className="card-flat p-5 h-96 animate-pulse" />}>
-            <FiltersSidebar
-              regioni={tassonomie.regioni}
-              province={province}
-              metodologie={tassonomie.metodologie}
-              discipline={tassonomie.discipline}
-              infrastrutture={tassonomie.infrastrutture}
-              affiliazioni={tassonomie.affiliazioni}
-              totalCount={results.length}
-            />
-          </Suspense>
+        {/* Filter bar — horizontal above results */}
+        <Suspense fallback={<div className="card-flat p-4 h-12 animate-pulse mb-6" />}>
+          <FiltersBar
+            regioni={tassonomie.regioni}
+            province={province}
+            metodologie={tassonomie.metodologie}
+            discipline={tassonomie.discipline}
+            infrastrutture={tassonomie.infrastrutture}
+            affiliazioni={tassonomie.affiliazioni}
+            totalCount={results.length}
+          />
+        </Suspense>
 
-          {/* Results */}
+        {/* Active filters chips */}
+        <Suspense fallback={null}>
+          <ActiveFiltersBar filters={filters} tassonomie={tassonomie} />
+        </Suspense>
+
+        {/* Results header */}
+        <div className="flex items-center justify-between mb-5 mt-5">
           <div>
-            <div className="flex items-center justify-between mb-5">
-              <div>
-                <h2 className="text-h2">
-                  {results.length}{" "}
-                  <span className="text-[color:var(--ds-gray-500)] font-normal">
-                    {results.length === 1 ? "centro" : "centri"}
-                  </span>
-                </h2>
-                <p className="text-xs text-[color:var(--ds-gray-500)] mt-1 font-mono">
-                  recordset aggiornato in tempo reale
-                </p>
-              </div>
-
-              {/* Sort selector — client-side URL update */}
-              <SortSelectorServer currentSort={sp.sort || "name"} />
-            </div>
-
-            {/* Active filters chips */}
-            <Suspense fallback={null}>
-              <ActiveFiltersBar filters={filters} tassonomie={tassonomie} />
-            </Suspense>
-
-            <ResultsGrid centri={results} />
+            <h2 className="text-h2">
+              {results.length}{" "}
+              <span className="text-[color:var(--ds-gray-500)] font-normal">
+                {results.length === 1 ? "centro" : "centri"}
+              </span>
+            </h2>
+            <p className="text-xs text-[color:var(--ds-gray-500)] mt-1 font-mono">
+              recordset aggiornato in tempo reale
+            </p>
           </div>
         </div>
+
+        <ResultsGrid centri={results} />
       </section>
     </>
   );
-}
-
-function SortSelectorServer({ currentSort }: { currentSort: string }) {
-  // Wrapped because SortSelector is a client component
-  return <SortSelector currentSort={currentSort} />;
 }

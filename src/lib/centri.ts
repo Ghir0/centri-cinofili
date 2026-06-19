@@ -52,6 +52,16 @@ function hexToDoubleLE(hex: string): number {
   return view.getFloat64(0, true)
 }
 
+/**
+ * Converte un array di stringhe (es. ['Agility Dog', 'Rally']) in oggetti
+ * compatibili con Metodologia/Disciplina/Infrastruttura — per dati provenienti
+ * dalle colonne text[] della tabella centri (arricchite via scraper).
+ */
+function textArrayToTaxonomy(arr: string[] | null | undefined): { nome: string; slug: string }[] {
+  if (!arr || !Array.isArray(arr)) return []
+  return arr.map((nome) => ({ nome, slug: nome.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') }))
+}
+
 export async function getCentroBySlug(slug: string): Promise<CentroExpanded | null> {
   const supabase = await createClient()
 
@@ -118,6 +128,18 @@ export async function getCentroBySlug(slug: string): Promise<CentroExpanded | nu
     }
   }
 
+  // Unisci dati junction con array colonne centri (scraper data)
+  const raw = centro as any
+  const junctionMetodologie = (centro.metodologie || []).map((m: any) => m.metodologia || m)
+  const junctionDiscipline = (centro.discipline || []).map((d: any) => d.disciplina || d)
+  const junctionInfrastrutture = (centro.infrastrutture || []).map((i: any) => i.infrastruttura || i)
+  const junctionAffiliazioni = (centro.affiliazioni || []).map((a: any) => a.affiliazione || a)
+
+  // Se junction è vuota ma centri ha array, usa quelli
+  const scrapedMetodologie = textArrayToTaxonomy(raw.metodologie)
+  const scrapedDiscipline = textArrayToTaxonomy(raw.discipline)
+  const scrapedInfrastrutture = textArrayToTaxonomy(raw.infrastrutture)
+
   return {
     ...centro,
     provincia,
@@ -125,10 +147,11 @@ export async function getCentroBySlug(slug: string): Promise<CentroExpanded | nu
     coordinate_gps,
     rating_medio,
     num_recensioni,
-    metodologie: (centro.metodologie || []).map((m: any) => m.metodologia || m),
-    discipline: (centro.discipline || []).map((d: any) => d.disciplina || d),
-    infrastrutture: (centro.infrastrutture || []).map((i: any) => i.infrastruttura || i),
-    affiliazioni: (centro.affiliazioni || []).map((a: any) => a.affiliazione || a),
+    // Priority: junction data if available, else scraped centri-level arrays
+    metodologie: junctionMetodologie.length > 0 ? junctionMetodologie : scrapedMetodologie as any,
+    discipline: junctionDiscipline.length > 0 ? junctionDiscipline : scrapedDiscipline as any,
+    infrastrutture: junctionInfrastrutture.length > 0 ? junctionInfrastrutture : scrapedInfrastrutture as any,
+    affiliazioni: junctionAffiliazioni as any,
   } as CentroExpanded
 }
 
@@ -168,10 +191,6 @@ export interface SearchResult {
   affiliazioni: { nome: string; slug: string }[]
 }
 
-/**
- * Search centri with optional filters.
- * Returns lightweight rows suitable for result cards.
- */
 export async function searchCentri(filters: SearchFilters): Promise<SearchResult[]> {
   const supabase = await createClient()
 
@@ -244,13 +263,14 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
     }
   }
 
-  // Build base query
+  // Build base query — include new array columns for scraped enrichment data
   let query = supabase
     .from('centri')
     .select(`
       id, slug, ragione_sociale, brand_name,
       indirizzo, comune, cap,
       claimed_by, claim_status,
+      metodologie, discipline, infrastrutture,
       provincia:provincia_id(id, nome, slug, sigla,
         regione:regione_id(id, nome, slug)
       )
@@ -291,7 +311,7 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
     supabase.from('recensioni').select('centro_id, rating').in('centro_id', ids),
   ])
 
-  // Build lookup maps
+  // Build lookup maps from junction tables
   const metodMap = new Map<number, { nome: string; slug: string }[]>()
   for (const r of metodRows.data || []) {
     const list = metodMap.get(r.centro_id) || []
@@ -324,9 +344,10 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
     ratingMap.set(r.centro_id, cur)
   }
 
-  // Assemble
+  // Assemble — merge junction data with centri-level array data
   const out: SearchResult[] = results.map((r) => {
     const rec = ratingMap.get(r.id)
+    const raw = r as any
     return {
       id: r.id,
       slug: r.slug,
@@ -335,16 +356,17 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
       indirizzo: r.indirizzo,
       comune: r.comune,
       cap: r.cap,
-      provincia_sigla: (r as any).provincia?.sigla ?? null,
-      provincia_nome: (r as any).provincia?.nome ?? null,
-      regione_nome: (r as any).provincia?.regione?.nome ?? null,
-      regione_slug: (r as any).provincia?.regione?.slug ?? null,
+      provincia_sigla: raw.provincia?.sigla ?? null,
+      provincia_nome: raw.provincia?.nome ?? null,
+      regione_nome: raw.provincia?.regione?.nome ?? null,
+      regione_slug: raw.provincia?.regione?.slug ?? null,
       claimed: !!r.claimed_by,
       rating_medio: rec && rec.n > 0 ? Math.round((rec.sum / rec.n) * 10) / 10 : null,
       num_recensioni: rec?.n ?? 0,
-      metodologie: metodMap.get(r.id) || [],
-      discipline: discMap.get(r.id) || [],
-      infrastrutture: infraMap.get(r.id) || [],
+      // Priority: junction data if available, else scraped centri-level arrays
+      metodologie: metodMap.get(r.id)?.length ? metodMap.get(r.id)! : textArrayToTaxonomy(raw.metodologie),
+      discipline: discMap.get(r.id)?.length ? discMap.get(r.id)! : textArrayToTaxonomy(raw.discipline),
+      infrastrutture: infraMap.get(r.id)?.length ? infraMap.get(r.id)! : textArrayToTaxonomy(raw.infrastrutture),
       affiliazioni: affilMap.get(r.id) || [],
     }
   })
