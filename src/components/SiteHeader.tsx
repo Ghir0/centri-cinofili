@@ -30,12 +30,6 @@ export function SiteHeader() {
           >
             Cerca
           </Link>
-          <Link
-            href="/centri-cinofili/"
-            className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)] transition-colors"
-          >
-            Directory
-          </Link>
         </nav>
 
         <Link href="/inserisci" className="btn-primary">

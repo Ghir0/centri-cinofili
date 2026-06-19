@@ -1,6 +1,57 @@
 import { createClient } from '@/lib/supabase/server'
 import type { CentroExpanded, Metodologia, Disciplina, Infrastruttura, Affiliazione } from '@/types/centro'
 
+/**
+ * Parsa una stringa EWKB hex (PostGIS geography) in { lat, lon }.
+ *
+ * Formato EWKB little-endian:
+ *   byte  0     : 0x01 (little-endian marker)
+ *   bytes 1-4   : type uint32 (con SRID flag 0x20000000 se presente)
+ *   bytes 5-8   : SRID uint32 (se SRID flag attivo)
+ *   bytes 9-16  : lon double
+ *   bytes 17-24 : lat double
+ *
+ * Universale (Node + browser), senza dipendenze.
+ */
+function parseWkbHex(hex: string): { lat: number; lon: number } | null {
+  if (!hex || hex.length < 50) return null
+
+  // Verifica little-endian marker (byte 0 = 0x01)
+  if (hex.substring(0, 2) !== '01') return null
+
+  // Type uint32 little-endian a byte 1-4 (8 hex chars)
+  const typeHex = hex.substring(2, 10)
+  // Little-endian uint32: byte 0 = hex[0:2], byte 1 = hex[2:4], ...
+  const type =
+    parseInt(typeHex.substring(6, 8), 16) * 0x1000000 +
+    parseInt(typeHex.substring(4, 6), 16) * 0x10000 +
+    parseInt(typeHex.substring(2, 4), 16) * 0x100 +
+    parseInt(typeHex.substring(0, 2), 16)
+  const hasSrid = (type & 0x20000000) !== 0
+
+  // Coordinate partono dopo SRID header (se presente)
+  const coordByteStart = hasSrid ? 9 : 5
+
+  // Lon (8 byte) little-endian double
+  const lon = hexToDoubleLE(hex.substring(coordByteStart * 2, (coordByteStart + 8) * 2))
+  // Lat (8 byte)
+  const lat = hexToDoubleLE(hex.substring((coordByteStart + 8) * 2, (coordByteStart + 16) * 2))
+
+  if (!isFinite(lat) || !isFinite(lon)) return null
+  return { lat, lon }
+}
+
+/** Converte 16 caratteri hex (8 byte little-endian) in double IEEE 754. */
+function hexToDoubleLE(hex: string): number {
+  if (hex.length !== 16) return NaN
+  const bytes = new Uint8Array(8)
+  for (let i = 0; i < 8; i++) {
+    bytes[i] = parseInt(hex.substring(i * 2, i * 2 + 2), 16)
+  }
+  const view = new DataView(bytes.buffer)
+  return view.getFloat64(0, true)
+}
+
 export async function getCentroBySlug(slug: string): Promise<CentroExpanded | null> {
   const supabase = await createClient()
 
@@ -52,14 +103,18 @@ export async function getCentroBySlug(slug: string): Promise<CentroExpanded | nu
     ? { id: centro.provincia.id, nome: centro.provincia.nome, slug: centro.provincia.slug, sigla: centro.provincia.sigla, regione_id: centro.provincia.regione_id }
     : null
 
-  // Normalizza coordinate da WKB/GeoJSON se presenti
+  // Normalizza coordinate da WKB/GeoJSON/WKT se presenti
   let coordinate_gps = null
   if (centro.coordinate_gps) {
     if (typeof centro.coordinate_gps === 'object' && 'coordinates' in centro.coordinate_gps) {
+      // GeoJSON da PostgREST (richiede Accept: application/geo+json)
       const coords = (centro.coordinate_gps as any).coordinates
       coordinate_gps = { lat: coords[1], lon: coords[0] }
     } else if (typeof centro.coordinate_gps === 'object' && 'lat' in centro.coordinate_gps) {
       coordinate_gps = centro.coordinate_gps as any
+    } else if (typeof centro.coordinate_gps === 'string') {
+      // PostgREST default: EWKB hex string per PostGIS geography
+      coordinate_gps = parseWkbHex(centro.coordinate_gps)
     }
   }
 
