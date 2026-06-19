@@ -289,7 +289,7 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
       )
     `)
     .order('ragione_sociale', { ascending: true })
-    .limit(200)
+    .limit(500)
 
   if (regioneId) {
     query = query.eq('provincia.regione_id', regioneId)

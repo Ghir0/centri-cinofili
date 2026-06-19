@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useMemo, useState, useTransition, useRef, useEffect } from "react";
+import { SearchModal } from "@/components/SearchModal";
 
 export interface FilterOption {
   id: number;
@@ -133,28 +134,8 @@ export function FiltersBar({
     <div className="card-flat p-4 pb-3">
       {/* Top row: filter controls */}
       <div className="flex flex-wrap items-center gap-2">
-        {/* Search */}
-        <form
-          className="flex-[2] min-w-[240px]"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const value = (e.currentTarget.elements.namedItem("bar-q") as HTMLInputElement).value;
-            const qs = buildNewParams((params) => {
-              if (value) params.set("q", value);
-              else params.delete("q");
-            });
-            apply(qs);
-          }}
-        >
-          <input
-            id="bar-q"
-            name="bar-q"
-            type="search"
-            placeholder="Cerca centro o comune…"
-            defaultValue={query}
-            className="input text-sm h-9"
-          />
-        </form>
+        {/* Search — modal on click */}
+        <SearchModal defaultQuery={query} />
 
         {/* Regione */}
         <select

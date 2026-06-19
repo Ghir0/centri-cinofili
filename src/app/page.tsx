@@ -77,23 +77,23 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <div className="mt-7 flex items-center gap-6 text-xs font-mono text-[color:var(--ds-gray-500)]">
             <div>
               <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">
-                {allResults.length > 0 ? `${allResults.length}+` : "10"}
+                {allResults.length}
               </span>{" "}
               centri
             </div>
             <div className="h-3 w-px bg-[color:var(--ds-gray-200)]" />
             <div>
-              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">20</span>{" "}
+              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">{tassonomie.regioni.length}</span>{" "}
               regioni
             </div>
             <div className="h-3 w-px bg-[color:var(--ds-gray-200)]" />
             <div>
-              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">4</span>{" "}
+              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">{tassonomie.metodologie.length}</span>{" "}
               metodologie
             </div>
             <div className="h-3 w-px bg-[color:var(--ds-gray-200)]" />
             <div>
-              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">7</span>{" "}
+              <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">{tassonomie.affiliazioni.length}</span>{" "}
               federazioni
             </div>
           </div>
