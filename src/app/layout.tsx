@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/SiteHeader";
+import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,9 +45,10 @@ export default function RootLayout({
       lang="it"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white text-[color:var(--ds-gray-900)]">
+      <body className="min-h-full flex flex-col bg-white text-[color:var(--ds-gray-900)] pb-14 md:pb-0">
         <SiteHeader />
         <main className="flex-1">{children}</main>
+        <MobileNav />
         <footer className="border-t border-[color:var(--ds-gray-100)] py-10">
           <div className="mx-auto max-w-7xl px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="text-sm text-[color:var(--ds-gray-500)]">

@@ -358,10 +358,16 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                 Gestisci i dati del tuo centro direttamente: contatti, metodo educativo,
                 infrastrutture, foto. La rivendicazione è gratuita.
               </p>
-              <Link href={`/centro/${centro.slug}/rivendica`} className="btn-primary w-full">
+              <a
+                href={`mailto:m.tamanti@webemento.com?subject=Rivendica%20scheda%20-%20${encodeURIComponent(displayName)}`}
+                className="btn-primary w-full"
+              >
                 Rivendica scheda
                 <span aria-hidden>→</span>
-              </Link>
+              </a>
+              <p className="text-xs text-[color:var(--ds-gray-400)] mt-3">
+                Coming soon — scrivici per inserire o rivendicare il tuo centro.
+              </p>
             </div>
           )}
 
