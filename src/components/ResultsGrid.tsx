@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PawIcon } from "@/components/PawIcon";
 
 export interface SearchResult {
   id: number;
@@ -48,11 +49,10 @@ function StarRating({ rating, reviews }: { rating: number | null; reviews: numbe
   );
 }
 
-function Avatar({ name, claimed }: { name: string; claimed: boolean }) {
-  const initial = (name || "?").trim().charAt(0).toUpperCase();
+function Avatar({ claimed }: { claimed: boolean }) {
   return (
     <div
-      className={`h-12 w-12 shrink-0 grid place-items-center rounded-lg font-mono text-base font-semibold tracking-tight ${
+      className={`h-12 w-12 shrink-0 grid place-items-center rounded-lg ${
         claimed
           ? "bg-[color:var(--ds-gray-900)] text-white"
           : "bg-white text-[color:var(--ds-gray-900)]"
@@ -60,7 +60,7 @@ function Avatar({ name, claimed }: { name: string; claimed: boolean }) {
       style={{ boxShadow: "var(--shadow-border)" }}
       aria-hidden
     >
-      {initial}
+      <PawIcon className="h-6 w-6" />
     </div>
   );
 }
@@ -105,7 +105,7 @@ export function CentroCard({ centro }: { centro: SearchResult }) {
 
       {/* Header: avatar + full name (sempre completo, niente truncate) */}
       <header className="flex items-start gap-3">
-        <Avatar name={displayName} claimed={centro.claimed} />
+        <Avatar claimed={centro.claimed} />
         <div className="min-w-0 flex-1">
           <h3 className="text-h3 leading-tight">
             <Link

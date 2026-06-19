@@ -1,6 +1,7 @@
 import type { CentroExpanded, SocialLinks } from "@/types/centro";
 import Link from "next/link";
 import CentroMapWrapper from "./CentroMapWrapper";
+import { PawIcon } from "@/components/PawIcon";
 
 interface CentroDetailProps {
   centro: CentroExpanded;
@@ -121,10 +122,10 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
           <header className="card p-7">
             <div className="flex items-start gap-5">
               <div
-                className="h-16 w-16 shrink-0 grid place-items-center rounded-lg font-mono text-2xl font-semibold bg-[color:var(--ds-gray-900)] text-white"
+                className="h-16 w-16 shrink-0 grid place-items-center rounded-lg bg-[color:var(--ds-gray-900)] text-white"
                 aria-hidden
               >
-                {displayName.charAt(0).toUpperCase()}
+                <PawIcon className="h-8 w-8" />
               </div>
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-4 flex-wrap">
