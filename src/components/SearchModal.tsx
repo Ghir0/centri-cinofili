@@ -98,14 +98,7 @@ export function SearchModal({
 
   const close = useCallback(() => {
     closeModal();
-    // Remove search param from URL if it was set (navbar trigger)
-    const params = new URLSearchParams(searchParams.toString());
-    if (params.has('search')) {
-      params.delete('search');
-      const qs = params.toString();
-      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    }
-  }, [router, pathname, searchParams, closeModal]);
+  }, [closeModal]);
 
   // ---- Filter logic (same as FiltersBar) ----
   const selectedRegione = searchParams.get('regione') || '';

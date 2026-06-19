@@ -27,7 +27,7 @@ export function SiteHeader() {
 
           <nav className="hidden md:flex items-center gap-7 text-sm">
             <Link
-              href="/?search=1"
+              href="/"
               className="text-[color:var(--ds-gray-900)] font-medium hover:underline decoration-[color:var(--ds-gray-400)] underline-offset-4"
             >
               Cerca
