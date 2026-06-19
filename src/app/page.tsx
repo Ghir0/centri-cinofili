@@ -3,6 +3,7 @@ import { searchCentri, getTassonomieForFilters, getProvinceByRegione } from "@/l
 import { FiltersBar } from "@/components/FiltersBar";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { ActiveFiltersBar } from "@/components/ActiveFiltersBar";
+import { Pagination } from "@/components/Pagination";
 
 // Force dynamic rendering because we read searchParams
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ interface HomePageProps {
     infrastruttura?: string | string[];
     affiliazione?: string | string[];
     sort?: "recent" | "name" | "rating";
+    page?: string;
   }>;
 }
 
@@ -24,6 +26,8 @@ function toArray(v: string | string[] | undefined): string[] {
   if (!v) return [];
   return Array.isArray(v) ? v : [v];
 }
+
+const PAGE_SIZE = 15;
 
 export default async function HomePage({ searchParams }: HomePageProps) {
   const sp = await searchParams;
@@ -39,11 +43,20 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     sort: sp.sort,
   };
 
-  const [tassonomie, province, results] = await Promise.all([
+  const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
+
+  const [tassonomie, province, allResults] = await Promise.all([
     getTassonomieForFilters(),
     sp.regione ? getProvinceByRegione(sp.regione) : Promise.resolve([]),
     searchCentri(filters),
   ]);
+
+  const totalPages = Math.max(1, Math.ceil(allResults.length / PAGE_SIZE));
+  const safePage = Math.min(page, totalPages);
+  const results = allResults.slice(
+    (safePage - 1) * PAGE_SIZE,
+    safePage * PAGE_SIZE
+  );
 
   return (
     <>
@@ -64,7 +77,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <div className="mt-7 flex items-center gap-6 text-xs font-mono text-[color:var(--ds-gray-500)]">
             <div>
               <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">
-                {results.length > 0 ? `${results.length}+` : "10"}
+                {allResults.length > 0 ? `${allResults.length}+` : "10"}
               </span>{" "}
               centri
             </div>
@@ -98,31 +111,43 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             discipline={tassonomie.discipline}
             infrastrutture={tassonomie.infrastrutture}
             affiliazioni={tassonomie.affiliazioni}
-            totalCount={results.length}
+            totalCount={allResults.length}
           />
         </Suspense>
 
         {/* Active filters chips */}
         <Suspense fallback={null}>
-          <ActiveFiltersBar filters={filters} tassonomie={tassonomie} />
+          <div className="mt-3 mb-4">
+            <ActiveFiltersBar filters={filters} tassonomie={tassonomie} />
+          </div>
         </Suspense>
 
         {/* Results header */}
         <div className="flex items-center justify-between mb-5 mt-5">
           <div>
             <h2 className="text-h2">
-              {results.length}{" "}
+              {allResults.length}{" "}
               <span className="text-[color:var(--ds-gray-500)] font-normal">
-                {results.length === 1 ? "centro" : "centri"}
+                {allResults.length === 1 ? "centro" : "centri"}
               </span>
             </h2>
             <p className="text-xs text-[color:var(--ds-gray-500)] mt-1 font-mono">
-              recordset aggiornato in tempo reale
+              {totalPages > 1
+                ? `pagina ${safePage} di ${totalPages} — recordset aggiornato in tempo reale`
+                : "recordset aggiornato in tempo reale"}
             </p>
           </div>
         </div>
 
         <ResultsGrid centri={results} />
+
+        <Suspense fallback={null}>
+          <Pagination
+            totalItems={allResults.length}
+            pageSize={PAGE_SIZE}
+            currentPage={safePage}
+          />
+        </Suspense>
       </section>
     </>
   );

@@ -59,9 +59,6 @@ export default function RootLayout({
               <a href="/mappa" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
                 Mappa
               </a>
-              <a href="/centri-cinofili/" className="text-[color:var(--ds-gray-600)] hover:text-[color:var(--ds-gray-900)]">
-                Directory
-              </a>
             </nav>
           </div>
         </footer>

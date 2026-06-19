@@ -130,12 +130,12 @@ export function FiltersBar({
   const currentSort = searchParams.get("sort") || "name";
 
   return (
-    <div className="card-flat p-4">
+    <div className="card-flat p-4 pb-3">
       {/* Top row: filter controls */}
       <div className="flex flex-wrap items-center gap-2">
         {/* Search */}
         <form
-          className="flex-1 min-w-[160px] max-w-[280px]"
+          className="flex-[2] min-w-[240px]"
           onSubmit={(e) => {
             e.preventDefault();
             const value = (e.currentTarget.elements.namedItem("bar-q") as HTMLInputElement).value;
