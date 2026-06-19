@@ -64,7 +64,7 @@ export default async function MappaPage({ searchParams }: MappaPageProps) {
         <div className="mx-auto max-w-7xl px-6 pt-10 pb-8">
           <div className="flex items-center gap-2 mb-4">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--ds-verified)]" />
-            <span className="text-eyebrow">Navigazione geografica</span>
+            <span className="text-eyebrow">Anagrafe Nazionale · v0.1</span>
           </div>
           <h1 className="text-display max-w-2xl">Mappa dei centri cinofili</h1>
           <p className="mt-3 max-w-xl text-base text-[color:var(--ds-gray-500)]">

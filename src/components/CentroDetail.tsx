@@ -211,9 +211,9 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
           {/* Tassonomie in colonne */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Metodologie */}
-            {centro.metodologie.length > 0 && (
-              <section className="card p-6">
-                <div className="text-eyebrow mb-4">Metodo educativo</div>
+            <section className="card p-6">
+              <div className="text-eyebrow mb-4">Metodo educativo</div>
+              {centro.metodologie.length > 0 ? (
                 <ul className="space-y-2.5">
                   {centro.metodologie.map((m) => (
                     <li key={m.id} className="flex items-start gap-2.5">
@@ -231,13 +231,17 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                     </li>
                   ))}
                 </ul>
-              </section>
-            )}
+              ) : (
+                <p className="text-sm text-[color:var(--ds-gray-400)] italic py-4">
+                  Dati non ancora disponibili
+                </p>
+              )}
+            </section>
 
             {/* Strutture */}
-            {centro.infrastrutture.length > 0 && (
-              <section className="card p-6">
-                <div className="text-eyebrow mb-4">Strutture</div>
+            <section className="card p-6">
+              <div className="text-eyebrow mb-4">Strutture</div>
+              {centro.infrastrutture.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
                   {centro.infrastrutture.map((i) => (
                     <span key={i.id} className="pill pill-infra">
@@ -245,13 +249,17 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                     </span>
                   ))}
                 </div>
-              </section>
-            )}
+              ) : (
+                <p className="text-sm text-[color:var(--ds-gray-400)] italic py-4">
+                  Dati non ancora disponibili
+                </p>
+              )}
+            </section>
 
-            {/* Discipline */}
-            {centro.discipline.length > 0 && (
-              <section className="card p-6">
-                <div className="text-eyebrow mb-4">Attività</div>
+            {/* Discipline / Attività */}
+            <section className="card p-6">
+              <div className="text-eyebrow mb-4">Attività</div>
+              {centro.discipline.length > 0 ? (
                 <div className="flex flex-wrap gap-1.5">
                   {centro.discipline.map((d) => (
                     <span key={d.id} className="pill pill-discipline">
@@ -259,13 +267,17 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                     </span>
                   ))}
                 </div>
-              </section>
-            )}
+              ) : (
+                <p className="text-sm text-[color:var(--ds-gray-400)] italic py-4">
+                  Dati non ancora disponibili
+                </p>
+              )}
+            </section>
 
             {/* Affiliazioni */}
-            {centro.affiliazioni.length > 0 && (
-              <section className="card p-6">
-                <div className="text-eyebrow mb-4">Affiliazioni</div>
+            <section className="card p-6">
+              <div className="text-eyebrow mb-4">Affiliazioni</div>
+              {centro.affiliazioni.length > 0 ? (
                 <ul className="space-y-2.5">
                   {centro.affiliazioni.map((a) => (
                     <li key={a.id} className="flex items-start gap-2.5">
@@ -283,8 +295,12 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
                     </li>
                   ))}
                 </ul>
-              </section>
-            )}
+              ) : (
+                <p className="text-sm text-[color:var(--ds-gray-400)] italic py-4">
+                  Dati non ancora disponibili
+                </p>
+              )}
+            </section>
           </div>
 
           {/* Recensioni */}
