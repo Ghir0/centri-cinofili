@@ -168,6 +168,7 @@ export function SearchModal({
     e.preventDefault();
     const qs = buildNewParams((params) => {
       params.delete('page');
+      params.delete('search'); // evita che il modal si riapra dopo submit
       if (query.trim()) { params.set('q', query.trim()); } else { params.delete('q'); }
     });
     apply(qs);
@@ -253,7 +254,7 @@ export function SearchModal({
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className={!selectedRegione ? 'opacity-40 pointer-events-none' : ''}>
                   <label className="block text-xs font-medium text-[color:var(--ds-gray-500)] mb-1.5">Provincia</label>
                   <select
                     className="w-full input text-sm h-9"
@@ -261,7 +262,9 @@ export function SearchModal({
                     onChange={(e) => setProvincia(e.target.value)}
                     disabled={!selectedRegione}
                   >
-                    <option value="">Tutte le province</option>
+                    <option value="">
+                      {selectedRegione ? 'Tutte le province' : 'Seleziona una regione'}
+                    </option>
                     {province.map((p) => (
                       <option key={p.id} value={p.slug}>{p.nome} ({p.sigla})</option>
                     ))}
