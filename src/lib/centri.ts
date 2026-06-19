@@ -235,19 +235,12 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
   ])
 
   // If user selected tassonomie, find candidate centro_ids via junction tables
-  async function centriWithAll(table: string, fk: string, ids: number[]): Promise<Set<number> | null> {
+  // OR logic: a centro must have AT LEAST ONE of the selected IDs
+  async function centriWithAny(table: string, fk: string, ids: number[]): Promise<Set<number> | null> {
     if (ids.length === 0) return null
     const { data } = await supabase.from(table).select('centro_id').in(fk, ids)
-    const counts = new Map<number, number>()
-    for (const r of data || []) {
-      counts.set(r.centro_id, (counts.get(r.centro_id) || 0) + 1)
-    }
-    // Centri che hanno TUTTE le ids selezionate
-    const result = new Set<number>()
-    for (const [cid, n] of counts.entries()) {
-      if (n === ids.length) result.add(cid)
-    }
-    return result
+    // Qualsiasi centro che ha almeno una delle ids selezionate
+    return new Set((data || []).map((r) => r.centro_id))
   }
 
   const [
@@ -256,10 +249,10 @@ export async function searchCentri(filters: SearchFilters): Promise<SearchResult
     infraCentri,
     affilCentri,
   ] = await Promise.all([
-    centriWithAll('centri_metodologie', 'metodologia_id', metodologieIds),
-    centriWithAll('centri_discipline', 'disciplina_id', disciplineIds),
-    centriWithAll('centri_infrastrutture', 'infrastruttura_id', infrastruttureIds),
-    centriWithAll('centri_affiliazioni', 'affiliazione_id', affiliazioniIds),
+    centriWithAny('centri_metodologie', 'metodologia_id', metodologieIds),
+    centriWithAny('centri_discipline', 'disciplina_id', disciplineIds),
+    centriWithAny('centri_infrastrutture', 'infrastruttura_id', infrastruttureIds),
+    centriWithAny('centri_affiliazioni', 'affiliazione_id', affiliazioniIds),
   ])
 
   // Intersect all junction results
