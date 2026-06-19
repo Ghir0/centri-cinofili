@@ -43,18 +43,24 @@ function MetaItem({
   );
 }
 
-function SocialButton({ href, label }: { href: string; label: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="btn-secondary flex-1 justify-center text-xs"
-    >
-      <span>{label}</span>
-      <span aria-hidden className="text-[color:var(--ds-gray-500)]">↗</span>
-    </a>
-  );
+function socialUrl(raw: string, platform: 'instagram' | 'facebook' | 'tiktok'): string {
+  // Already a full URL
+  if (/^https?:\/\//i.test(raw)) return raw;
+
+  // Clean up: remove leading @ and trailing slashes
+  let handle = raw.replace(/^@/, '').replace(/\/+$/, '');
+
+  // Handle Facebook URLs that are missing the protocol
+  if (/^facebook\.com\//i.test(handle)) return `https://${handle}`;
+  if (/^(www\.)?facebook\.com\//i.test(handle)) return `https://${handle}`;
+
+  // Build platform-specific URL
+  const bases: Record<string, string> = {
+    instagram: 'https://instagram.com/',
+    facebook: 'https://facebook.com/',
+    tiktok: 'https://tiktok.com/@',
+  };
+  return bases[platform] + handle;
 }
 
 export default function CentroDetail({ centro }: CentroDetailProps) {
@@ -443,13 +449,37 @@ export default function CentroDetail({ centro }: CentroDetailProps) {
               <div className="text-eyebrow mb-3">Social</div>
               <div className="flex gap-2">
                 {social.instagram && (
-                  <SocialButton href={social.instagram} label="Instagram" />
+                  <a
+                    href={socialUrl(social.instagram, 'instagram')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex-1 justify-center text-xs"
+                  >
+                    <span>Instagram</span>
+                    <span aria-hidden className="text-[color:var(--ds-gray-500)]">↗</span>
+                  </a>
                 )}
                 {social.facebook && (
-                  <SocialButton href={social.facebook} label="Facebook" />
+                  <a
+                    href={socialUrl(social.facebook, 'facebook')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex-1 justify-center text-xs"
+                  >
+                    <span>Facebook</span>
+                    <span aria-hidden className="text-[color:var(--ds-gray-500)]">↗</span>
+                  </a>
                 )}
                 {social.tiktok && (
-                  <SocialButton href={social.tiktok} label="TikTok" />
+                  <a
+                    href={socialUrl(social.tiktok, 'tiktok')}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-secondary flex-1 justify-center text-xs"
+                  >
+                    <span>TikTok</span>
+                    <span aria-hidden className="text-[color:var(--ds-gray-500)]">↗</span>
+                  </a>
                 )}
               </div>
             </div>

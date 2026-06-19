@@ -32,7 +32,7 @@ function buildJsonLd(centro: CentroExpanded): Record<string, unknown> {
   const sameAs: string[] = []
   if (centro.social_links) {
     if (centro.social_links.instagram) sameAs.push(`https://instagram.com/${centro.social_links.instagram.replace(/^@/, '')}`)
-    if (centro.social_links.facebook) sameAs.push(centro.social_links.facebook)
+    if (centro.social_links.facebook) sameAs.push(centro.social_links.facebook.startsWith("http") ? centro.social_links.facebook : `https://facebook.com/${centro.social_links.facebook.replace(/^@/, "")}`)
     if (centro.social_links.tiktok) sameAs.push(`https://tiktok.com/@${centro.social_links.tiktok.replace(/^@/, '')}`)
   }
   if (centro.sito_web) sameAs.push(centro.sito_web)
