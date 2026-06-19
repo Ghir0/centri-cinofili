@@ -56,11 +56,10 @@ export default async function HomePage({ searchParams }: HomePageProps) {
             <span className="text-eyebrow">Anagrafe Nazionale · v0.1</span>
           </div>
           <h1 className="text-display max-w-3xl">
-            Consulenza scientifica cinofila trasparente.
+            Per una cinofilia raggiungibile e trasparente.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[color:var(--ds-gray-600)]">
-            Registro aperto dei centri cinofili italiani. Dati disponibili statically dal minuto zero
-            per massimizzare la reperibilità SEO delle strutture. Clicca su un centro per consultare
+            Registro aperto dei centri cinofili italiani. Clicca su un centro per consultare
             dettagli descrittivi e metodi educativi certificati.
           </p>
           <div className="mt-7 flex items-center gap-6 text-xs font-mono text-[color:var(--ds-gray-500)]">
