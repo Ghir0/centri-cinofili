@@ -90,15 +90,22 @@ export function SearchModal({
     setOpen(true);
   }, []);
 
-  const close = useCallback(() => {
+  // Close modal without touching URL (used from submit/filter clicks)
+  const closeModal = useCallback(() => {
     setAnimating(false);
     setTimeout(() => setOpen(false), 200);
-    // Remove search param from URL if it was set
+  }, []);
+
+  const close = useCallback(() => {
+    closeModal();
+    // Remove search param from URL if it was set (navbar trigger)
     const params = new URLSearchParams(searchParams.toString());
-    params.delete('search');
-    const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [router, pathname, searchParams]);
+    if (params.has('search')) {
+      params.delete('search');
+      const qs = params.toString();
+      router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    }
+  }, [router, pathname, searchParams, closeModal]);
 
   // ---- Filter logic (same as FiltersBar) ----
   const selectedRegione = searchParams.get('regione') || '';
@@ -164,8 +171,8 @@ export function SearchModal({
       if (query.trim()) { params.set('q', query.trim()); } else { params.delete('q'); }
     });
     apply(qs);
-    close();
-  }, [query, buildNewParams, apply, close]);
+    closeModal();
+  }, [query, buildNewParams, apply, closeModal]);
 
   const hasFilters = !!searchParams.get('q') || !!selectedRegione ||
     ['metodologia', 'disciplina', 'infrastruttura', 'affiliazione'].some(k => searchParams.getAll(k).length > 0);
