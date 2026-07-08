@@ -61,6 +61,13 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-padding-top: 280px; /* sticky header (64px) + hero (~200px) + margin per anchor #cerca */
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 80px; /* solo sticky header su desktop */
+  }
 }
 
 body {
