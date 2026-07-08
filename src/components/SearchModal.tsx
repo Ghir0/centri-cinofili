@@ -180,6 +180,7 @@ export function SearchModal({
     <>
       {/* Compact trigger */}
       <button
+        id="cerca"
         type="button"
         onClick={openModal}
         className="flex-1 min-w-[200px] input text-sm h-9 text-left text-[color:var(--ds-gray-400)] cursor-text hover:border-[color:var(--ds-gray-400)] transition-colors"
