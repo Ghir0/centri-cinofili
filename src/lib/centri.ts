@@ -425,3 +425,15 @@ export async function getProvinceByRegione(regioneSlug: string) {
     .order('nome')
   return province || []
 }
+
+/**
+ * Leggera: solo il conteggio totale dei centri (per hero stats).
+ */
+export async function getTotalCentriCount(): Promise<number> {
+  const supabase = await createClient()
+  const { count, error } = await supabase
+    .from('centri')
+    .select('id', { count: 'exact', head: true })
+  if (error || count === null) return 0
+  return count
+}

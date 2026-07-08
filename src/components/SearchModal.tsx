@@ -58,10 +58,14 @@ export function SearchModal({
     setQuery(searchParams.get('q') || '');
   }, [searchParams]);
 
-  // Focus input when opening
+  // Focus input when opening + trigger glow animation
   useEffect(() => {
     if (open && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 150);
+      setTimeout(() => {
+        inputRef.current?.focus();
+        inputRef.current?.classList.add('search-glow');
+        setTimeout(() => inputRef.current?.classList.remove('search-glow'), 2100);
+      }, 150);
     }
   }, [open]);
 

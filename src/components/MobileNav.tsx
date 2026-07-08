@@ -1,19 +1,28 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 /** Barra di navigazione fissa in basso — visibile solo su mobile (max-md). */
 export function MobileNav() {
+  const router = useRouter();
   const pathname = usePathname();
   const isMappa = pathname === "/mappa";
+
+  const handleCerca = () => {
+    if (pathname === "/") {
+      router.replace("/?search=1", { scroll: false });
+    } else {
+      router.push("/?search=1");
+    }
+  };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[1100] md:hidden bg-white border-t border-[color:var(--ds-gray-100)]">
       <div className="flex items-center justify-around h-14 px-2">
-        <Link
-          href="/"
-          className={`flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors ${
+        <button
+          type="button"
+          onClick={handleCerca}
+          className={`flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors border-0 bg-transparent cursor-pointer font-[inherit] ${
             !isMappa ? "text-[color:var(--ds-gray-900)]" : "text-[color:var(--ds-gray-400)]"
           }`}
         >
@@ -22,11 +31,12 @@ export function MobileNav() {
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <span className="text-[10px] font-medium">Cerca</span>
-        </Link>
+        </button>
 
-        <Link
-          href="/mappa"
-          className={`flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors ${
+        <button
+          type="button"
+          onClick={() => router.push("/mappa")}
+          className={`flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors border-0 bg-transparent cursor-pointer font-[inherit] ${
             isMappa ? "text-[color:var(--ds-gray-900)]" : "text-[color:var(--ds-gray-400)]"
           }`}
         >
@@ -35,7 +45,7 @@ export function MobileNav() {
             <circle cx="12" cy="10" r="3" />
           </svg>
           <span className="text-[10px] font-medium">Mappa</span>
-        </Link>
+        </button>
       </div>
     </nav>
   );

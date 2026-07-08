@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { searchCentri, getTassonomieForFilters, getProvinceByRegione } from "@/lib/centri";
+import { searchCentri, getTassonomieForFilters, getProvinceByRegione, getTotalCentriCount } from "@/lib/centri";
 import { FiltersBar } from "@/components/FiltersBar";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { ActiveFiltersBar } from "@/components/ActiveFiltersBar";
@@ -57,10 +57,11 @@ export default async function HomePage({ searchParams }: HomePageProps) {
   };
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
-  const [tassonomie, province, allResults] = await Promise.all([
+  const [tassonomie, province, allResults, totalCount] = await Promise.all([
     getTassonomieForFilters(),
     sp.regione ? getProvinceByRegione(sp.regione) : Promise.resolve([]),
     isFiltered ? searchCentri(filters) : Promise.resolve([]),
+    getTotalCentriCount(),
   ]);
 
   const totalPages = Math.max(1, Math.ceil(allResults.length / PAGE_SIZE));
@@ -89,7 +90,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <div className="mt-7 flex items-center gap-6 text-xs font-mono text-[color:var(--ds-gray-500)]">
             <div>
               <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">
-                {allResults.length || 0}
+                {isFiltered ? (allResults.length || 0) : totalCount}
               </span>{" "}
               centri
             </div>
