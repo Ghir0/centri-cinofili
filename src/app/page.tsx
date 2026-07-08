@@ -4,8 +4,8 @@ import { FiltersBar } from "@/components/FiltersBar";
 import { ResultsGrid } from "@/components/ResultsGrid";
 import { ActiveFiltersBar } from "@/components/ActiveFiltersBar";
 import { Pagination } from "@/components/Pagination";
+import { MethodologyGuide } from "@/components/MethodologyGuide";
 
-// Force dynamic rendering because we read searchParams
 export const dynamic = "force-dynamic";
 
 interface HomePageProps {
@@ -29,8 +29,21 @@ function toArray(v: string | string[] | undefined): string[] {
 
 const PAGE_SIZE = 15;
 
+function hasActiveFilters(sp: Record<string, any>): boolean {
+  return !!(
+    sp.q ||
+    sp.regione ||
+    sp.provincia ||
+    toArray(sp.metodologia).length > 0 ||
+    toArray(sp.disciplina).length > 0 ||
+    toArray(sp.infrastruttura).length > 0 ||
+    toArray(sp.affiliazione).length > 0
+  );
+}
+
 export default async function HomePage({ searchParams }: HomePageProps) {
   const sp = await searchParams;
+  const isFiltered = hasActiveFilters(sp);
 
   const filters = {
     q: sp.q,
@@ -42,13 +55,12 @@ export default async function HomePage({ searchParams }: HomePageProps) {
     affiliazioni: toArray(sp.affiliazione),
     sort: sp.sort,
   };
-
   const page = Math.max(1, parseInt(sp.page || "1", 10) || 1);
 
   const [tassonomie, province, allResults] = await Promise.all([
     getTassonomieForFilters(),
     sp.regione ? getProvinceByRegione(sp.regione) : Promise.resolve([]),
-    searchCentri(filters),
+    isFiltered ? searchCentri(filters) : Promise.resolve([]),
   ]);
 
   const totalPages = Math.max(1, Math.ceil(allResults.length / PAGE_SIZE));
@@ -60,7 +72,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
 
   return (
     <>
-      {/* Hero — minimal, monoline, branded */}
+      {/* Hero */}
       <section className="border-b border-[color:var(--ds-gray-100)] bg-white">
         <div className="mx-auto max-w-7xl px-6 pt-14 pb-12">
           <div className="flex items-center gap-2 mb-6">
@@ -77,7 +89,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           <div className="mt-7 flex items-center gap-6 text-xs font-mono text-[color:var(--ds-gray-500)]">
             <div>
               <span className="text-[color:var(--ds-gray-900)] font-semibold text-base">
-                {allResults.length}
+                {allResults.length || 0}
               </span>{" "}
               centri
             </div>
@@ -100,9 +112,8 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         </div>
       </section>
 
-      {/* Horizontal filter bar + results */}
+      {/* Horizontal filter bar */}
       <section className="mx-auto max-w-7xl px-6 py-10">
-        {/* Filter bar — horizontal above results */}
         <Suspense fallback={<div className="card-flat p-4 h-12 animate-pulse mb-6" />}>
           <FiltersBar
             regioni={tassonomie.regioni}
@@ -122,32 +133,39 @@ export default async function HomePage({ searchParams }: HomePageProps) {
           </div>
         </Suspense>
 
-        {/* Results header */}
-        <div className="flex items-center justify-between mb-5 mt-5">
-          <div>
-            <h2 className="text-h2">
-              {allResults.length}{" "}
-              <span className="text-[color:var(--ds-gray-500)] font-normal">
-                {allResults.length === 1 ? "centro" : "centri"}
-              </span>
-            </h2>
-            <p className="text-xs text-[color:var(--ds-gray-500)] mt-1 font-mono">
-              {totalPages > 1
-                ? `pagina ${safePage} di ${totalPages} — recordset aggiornato in tempo reale`
-                : "recordset aggiornato in tempo reale"}
-            </p>
-          </div>
-        </div>
+        {isFiltered ? (
+          /* When filters are active: show results */
+          <>
+            <div className="flex items-center justify-between mb-5 mt-5">
+              <div>
+                <h2 className="text-h2">
+                  {allResults.length}{" "}
+                  <span className="text-[color:var(--ds-gray-500)] font-normal">
+                    {allResults.length === 1 ? "centro" : "centri"}
+                  </span>
+                </h2>
+                <p className="text-xs text-[color:var(--ds-gray-500)] mt-1 font-mono">
+                  {totalPages > 1
+                    ? `pagina ${safePage} di ${totalPages} — recordset aggiornato in tempo reale`
+                    : "recordset aggiornato in tempo reale"}
+                </p>
+              </div>
+            </div>
 
-        <ResultsGrid centri={results} />
+            <ResultsGrid centri={results} />
 
-        <Suspense fallback={null}>
-          <Pagination
-            totalItems={allResults.length}
-            pageSize={PAGE_SIZE}
-            currentPage={safePage}
-          />
-        </Suspense>
+            <Suspense fallback={null}>
+              <Pagination
+                totalItems={allResults.length}
+                pageSize={PAGE_SIZE}
+                currentPage={safePage}
+              />
+            </Suspense>
+          </>
+        ) : (
+          /* When no filters: show methodology guide */
+          <MethodologyGuide />
+        )}
       </section>
     </>
   );

@@ -2,13 +2,11 @@
 Scraper Centri Cinofili — Runner principale.
 
 Usage:
-    python -m scraper --regione marche          # Singola regione
-    python -m scraper --regione marche --dry-run # Solo fonti ufficiali
+    python -m scraper --regione marche          # Singola regione (tutte le fonti)
+    python -m scraper --regione marche --dry-run # Solo ENCI (API ufficiale)
     python -m scraper --all                      # Tutte le regioni
-    python -m scraper --regione marche --fonte enci  # Solo una fonte
+    python -m scraper --enci-only                # Solo ENCI, Italia intera
 """
-
-from __future__ import annotations
 
 import argparse
 import json
@@ -17,253 +15,159 @@ import sys
 from pathlib import Path
 
 from .comuni import get_comuni_for_regione, get_tutte_le_regioni
-from .core import CentroRaw, Fetcher, deduplicate, normalize, _build_id
-from .fonte_affiliazioni import scrape_enci, scrape_affiliazioni_secondarie
+from .core import CentroRaw, Fetcher, deduplicate, normalize
+from .fonte_enci_api import scrape_enci_api
 from .fonte_google_maps import scrape_google_maps
 from .fonte_google_search import scrape_google_search
+from .fonte_affiliazioni import scrape_altre_affiliazioni
+from .fonte_asc_csen import scrape_asc_csen
 
 logger = logging.getLogger("scraper.runner")
-
-# Output dir: supabase/seeds/
-DEFAULT_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "supabase" / "seeds"
+OUT = Path(__file__).resolve().parent.parent / "supabase" / "seeds"
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Scraper centri cinofili italiani",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Esempi:
-  python -m scraper --regione marche
-  python -m scraper --regione marche --fonte enci --fonte maps
-  python -m scraper --all --no-search
-  python -m scraper --regione marche --dry-run
-        """,
-    )
-    parser.add_argument(
-        "--regione", "-r",
-        help="Regione da scrapare (slug: marche, emilia-romagna, etc.)",
-    )
-    parser.add_argument(
-        "--all", "-a",
-        action="store_true",
-        help="Scrapa tutte le regioni",
-    )
-    parser.add_argument(
-        "--fonte", "-f",
-        choices=["enci", "maps", "search"],
-        action="append",
-        help="Fonti da usare (default: tutte)",
-    )
-    parser.add_argument(
-        "--no-search",
-        action="store_true",
-        help="Salta Google Search (più lento, più rate-limiting)",
-    )
-    parser.add_argument(
-        "--no-maps",
-        action="store_true",
-        help="Salta Google Maps (più aggressivo anti-bot)",
-    )
-    parser.add_argument(
-        "--dry-run",
-        action="store_true",
-        help="Solo fonti ufficiali (ENCI+affiliazioni), senza Google",
-    )
-    parser.add_argument(
-        "--output", "-o",
-        default=None,
-        help="Directory output (default: supabase/seeds/)",
-    )
-    parser.add_argument(
-        "--delay-min",
-        type=float,
-        default=2.0,
-        help="Delay minimo tra richieste in secondi (default: 2.0)",
-    )
-    parser.add_argument(
-        "--delay-max",
-        type=float,
-        default=6.0,
-        help="Delay massimo tra richieste in secondi (default: 6.0)",
-    )
-    parser.add_argument(
-        "--max-comuni",
-        type=int,
-        default=0,
-        help="Max comuni da processare (0 = tutti, utile per test)",
-    )
-    parser.add_argument(
-        "--verbose", "-v",
-        action="store_true",
-        help="Logging DEBUG",
-    )
-
-    args = parser.parse_args()
+    p = argparse.ArgumentParser(description="Scraper centri cinofili italiani")
+    p.add_argument("--regione", "-r", help="Regione (slug: marche, emilia-romagna, ...)")
+    p.add_argument("--all", "-a", action="store_true", help="Tutte le regioni")
+    p.add_argument("--enci-only", action="store_true", help="Solo ENCI API su tutta Italia")
+    p.add_argument("--fonte", "-f", choices=["enci","maps","search","affiliazioni","asc_csen"],
+                   action="append", help="Fonti (default: enci + asc_csen + maps + search)")
+    p.add_argument("--dry-run", action="store_true", help="Solo ENCI")
+    p.add_argument("--no-search", action="store_true")
+    p.add_argument("--no-maps", action="store_true")
+    p.add_argument("--output", "-o", default=None)
+    p.add_argument("--delay-min", type=float, default=2.0)
+    p.add_argument("--delay-max", type=float, default=6.0)
+    p.add_argument("--max-comuni", type=int, default=0)
+    p.add_argument("--verbose", "-v", action="store_true")
+    args = p.parse_args()
 
     if args.verbose:
         logging.getLogger("scraper").setLevel(logging.DEBUG)
 
-    # Determina regioni
-    if args.all:
+    # Regioni
+    if args.enci_only:
+        regioni = [None]  # ENCI API senza filtro regione → tutte
+    elif args.all:
         regioni = get_tutte_le_regioni()
     elif args.regione:
         regioni = [args.regione.lower()]
     else:
-        parser.error("Specifica --regione o --all")
+        p.error("Specifica --regione, --all, o --enci-only")
 
-    # Determina fonti
-    if args.dry_run:
-        fonti = ["enci"]
+    # Fonti
+    if args.dry_run or args.enci_only:
+        fonti = ["enci", "asc_csen"]
     elif args.fonte:
         fonti = args.fonte
     else:
-        fonti = ["enci", "maps", "search"]
+        fonti = ["enci", "asc_csen", "maps", "search"]  # default
 
-    # Esclusioni
     if args.no_search and "search" in fonti:
         fonti.remove("search")
     if args.no_maps and "maps" in fonti:
         fonti.remove("maps")
 
-    output_dir = Path(args.output) if args.output else DEFAULT_OUTPUT_DIR
+    output_dir = Path(args.output) if args.output else OUT
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    # Fetcher condiviso
-    fetcher = Fetcher(
-        min_delay=args.delay_min,
-        max_delay=args.delay_max,
-        timeout=30,
-        max_retries=3,
-    )
+    fetcher = Fetcher(min_delay=args.delay_min, max_delay=args.delay_max)
 
     for regione_slug in regioni:
+        label = regione_slug or "italia"
         logger.info("=" * 60)
-        logger.info("REGIONE: %s", regione_slug)
-        logger.info("Fonti: %s", ", ".join(fonti))
+        logger.info("REGIONE: %s | Fonti: %s", label, ",".join(fonti))
         logger.info("=" * 60)
 
         all_raw: list[CentroRaw] = []
 
-        # Fonte 1: ENCI e affiliazioni
+        # Fonte 1: ENCI API ufficiale (PRINCIPALE)
         if "enci" in fonti:
-            logger.info("─ Fonte 1/3: ENCI ─")
+            logger.info("--- ENCI API ---")
             try:
-                enci_results = scrape_enci(fetcher, regione=regione_slug)
+                enci_results = scrape_enci_api(regione=regione_slug)
                 all_raw.extend(enci_results)
-                logger.info("ENCI: %d centri trovati", len(enci_results))
+                logger.info("ENCI: %d centri", len(enci_results))
             except Exception as e:
-                logger.error("ENCI fallito: %s", e, exc_info=args.verbose)
+                logger.error("ENCI fallita: %s", e, exc_info=args.verbose)
 
-            logger.info("─ Fonte 1b/3: Affiliazioni secondarie (FICSS/CSEN/OPES) ─")
+        # Fonte 2: altre affiliazioni (FICSS/CSEN/OPES)
+        if "affiliazioni" in fonti and regione_slug:
+            logger.info("--- Altre affiliazioni ---")
             try:
-                other_results = scrape_affiliazioni_secondarie(fetcher, regione=regione_slug)
-                all_raw.extend(other_results)
-                logger.info("Affiliazioni secondarie: %d centri", len(other_results))
+                other = scrape_altre_affiliazioni(fetcher, regione=regione_slug)
+                all_raw.extend(other)
             except Exception as e:
-                logger.error("Affiliazioni secondarie fallite: %s", e, exc_info=args.verbose)
+                logger.error("Affiliazioni fallite: %s", e)
 
-        comuni = get_comuni_for_regione(regione_slug)
-        if args.max_comuni > 0:
-            comuni = comuni[:args.max_comuni]
-        logger.info("Comuni da processare: %d", len(comuni))
+        # Fonte 2b: ASC + CSEN (tabelle pubbliche HTML)
+        if "asc_csen" in fonti:
+            logger.info("--- ASC + CSEN ---")
+            try:
+                asc_csen_results = scrape_asc_csen()
+                all_raw.extend(asc_csen_results)
+                logger.info("ASC+CSEN: %d centri", len(asc_csen_results))
+            except Exception as e:
+                logger.error("ASC+CSEN fallita: %s", e)
 
-        # Fonte 2: Google Maps
-        if "maps" in fonti:
-            logger.info("─ Fonte 2/3: Google Maps ─")
+        # Per Google Maps/Search serve la lista comuni
+        comuni = []
+        if regione_slug and ("maps" in fonti or "search" in fonti):
+            comuni = get_comuni_for_regione(regione_slug)
+            if args.max_comuni > 0:
+                comuni = comuni[:args.max_comuni]
+            logger.info("Comuni: %d", len(comuni))
+
+        if "maps" in fonti and comuni:
+            logger.info("--- Google Maps ---")
             try:
                 maps_results = scrape_google_maps(fetcher, regione_slug, comuni)
                 all_raw.extend(maps_results)
-                logger.info("Google Maps: %d centri trovati", len(maps_results))
+                logger.info("Maps: %d centri", len(maps_results))
             except Exception as e:
-                logger.error("Google Maps fallito: %s", e, exc_info=args.verbose)
+                logger.error("Maps fallita: %s", e)
 
-        # Fonte 3: Google Search + siti web
-        if "search" in fonti:
-            logger.info("─ Fonte 3/3: Google Search + siti web ─")
+        if "search" in fonti and comuni:
+            logger.info("--- Google Search ---")
             try:
-                search_results = scrape_google_search(
-                    fetcher,
-                    regione_slug,
-                    comuni,
-                    max_per_comune=3,
-                    visit_sites=True,
-                )
+                search_results = scrape_google_search(fetcher, regione_slug, comuni)
                 all_raw.extend(search_results)
-                logger.info("Google Search: %d centri trovati", len(search_results))
+                logger.info("Search: %d centri", len(search_results))
             except Exception as e:
-                logger.error("Google Search fallito: %s", e, exc_info=args.verbose)
+                logger.error("Search fallita: %s", e)
 
-        # Normalizza e deduplica
-        logger.info("─ Normalizzazione e deduplica ─")
-        logger.info("Totale raw: %d", len(all_raw))
-
-        normalized = []
-        for raw in all_raw:
-            record = normalize(raw)
-            if record:
-                normalized.append(record)
-
-        logger.info("Normalizzati: %d record validi", len(normalized))
-
+        logger.info("Raw total: %d", len(all_raw))
+        normalized = [n for n in (normalize(r) for r in all_raw) if n]
         deduped = deduplicate(normalized)
-        logger.info("Dopo deduplica: %d centri unici", len(deduped))
+        logger.info("Dopo dedup: %d centri unici", len(deduped))
 
-        # Salva JSON
-        # Trova il prossimo numero seed
-        existing_seeds = sorted(output_dir.glob("*.json"))
-        next_num = 2  # 00001 è già le Marche seed manuale
-        for seed_file in existing_seeds:
+        # File output
+        existing = sorted(output_dir.glob("*.json"))
+        next_num = 2
+        for sf in existing:
             try:
-                num = int(seed_file.stem.split("_")[0])
-                if num >= next_num:
-                    next_num = num + 1
-            except (ValueError, IndexError):
+                n = int(sf.stem.split("_")[0])
+                if n >= next_num:
+                    next_num = n + 1
+            except Exception:
                 pass
 
-        out_path = output_dir / f"{next_num:05d}_{regione_slug}_scraped.json"
-        with open(out_path, "w", encoding="utf-8") as f:
+        out = output_dir / f"{next_num:05d}_{label}_scraped.json"
+        with open(out, "w", encoding="utf-8") as f:
             json.dump(deduped, f, ensure_ascii=False, indent=2)
-
-        logger.info("✅ Salvato: %s (%d centri)", out_path, len(deduped))
+        logger.info("SAVED: %s (%d centri)", out, len(deduped))
 
         # Report
-        _print_report(deduped, regione_slug)
+        if deduped:
+            gps = sum(1 for c in deduped if c.get("coordinate_gps"))
+            tel = sum(1 for c in deduped if c.get("telefono"))
+            web = sum(1 for c in deduped if c.get("sito_web"))
+            email = sum(1 for c in deduped if c.get("email"))
+            print(f"\nReport {label}: {len(deduped)} centri | "
+                  f"GPS:{gps} | Tel:{tel} | Web:{web} | Email:{email}")
 
-    logger.info("🎉 Scraping completato!")
-
-
-def _print_report(centri: list[dict], regione: str) -> None:
-    """Stampa un report riassuntivo."""
-    if not centri:
-        logger.warning("Nessun centro trovato per %s", regione)
-        return
-
-    fonti = {}
-    with_gps = 0
-    with_phone = 0
-    with_site = 0
-    with_email = 0
-
-    for c in centri:
-        fonte = c.get("fonte", "unknown")
-        fonti[fonte] = fonti.get(fonte, 0) + 1
-        if c.get("coordinate_gps"):
-            with_gps += 1
-        if c.get("telefono"):
-            with_phone += 1
-        if c.get("sito_web"):
-            with_site += 1
-        if c.get("email"):
-            with_email += 1
-
-    print(f"\n📊 Report regione: {regione}")
-    print(f"   Totale centri: {len(centri)}")
-    print(f"   Con GPS: {with_gps} ({with_gps * 100 // len(centri)}%)")
-    print(f"   Con telefono: {with_phone} ({with_phone * 100 // len(centri)}%)")
-    print(f"   Con sito web: {with_site} ({with_site * 100 // len(centri)}%)")
-    print(f"   Con email: {with_email} ({with_email * 100 // len(centri)}%)")
-    print(f"   Per fonte: {fonti}")
+    logger.info("Done!")
 
 
 if __name__ == "__main__":

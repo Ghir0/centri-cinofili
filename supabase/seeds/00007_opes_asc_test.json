@@ -1,0 +1,37 @@
+[
+  {
+    "source": "OPES",
+    "codice_fiscale": "02978650907",
+    "nome": "SSD SCUOLA CINOFILIA OLBIA SRL",
+    "regione": "Sardegna",
+    "comune": "Olbia"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "04076560046",
+    "nome": "CENTRO CINOFILO CANE BLU",
+    "regione": "Piemonte",
+    "comune": "Piobesi D'Alba"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90042800517",
+    "nome": "Toscana Cinofilia asd",
+    "regione": "Toscana",
+    "comune": "Montevarchi"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90043540922",
+    "nome": "CENTRO CINOFILO ALCHIMYA A.S.D.",
+    "regione": "Sardegna",
+    "comune": "Carbonia"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "91131560681",
+    "nome": "CENTRO CINOFILO PERFIDO ASD",
+    "regione": "Abruzzo",
+    "comune": "Manoppello"
+  }
+]

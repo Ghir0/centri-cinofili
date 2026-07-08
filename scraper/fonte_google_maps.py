@@ -23,7 +23,7 @@ from typing import Any, Iterator
 
 from bs4 import BeautifulSoup
 
-from .core import CentroRaw, Fetcher, extract_contacts_from_text
+from .core import CentroRaw, Fetcher, extract_contacts
 
 logger = logging.getLogger("scraper.maps")
 
@@ -135,7 +135,7 @@ def _search_google_for_maps_results(
         )
 
         # Estrai contatti dallo snippet
-        contacts = extract_contacts_from_text(combined)
+        contacts = extract_contacts(combined)
         raw.telefono = contacts.get("telefono")
         raw.email = contacts.get("email")
         if contacts.get("social_links"):
@@ -271,7 +271,7 @@ def scrape_google_maps_direct(
 
             # Estrai tutti i testi dalla card
             card_text = card.get_text(" ", strip=True)
-            contacts = extract_contacts_from_text(card_text)
+            contacts = extract_contacts(card_text)
             raw.telefono = contacts.get("telefono")
             raw.email = contacts.get("email")
 

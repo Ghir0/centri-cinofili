@@ -18,7 +18,7 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
-from .core import CentroRaw, Fetcher, extract_contacts_from_text
+from .core import CentroRaw, Fetcher, extract_contacts
 
 logger = logging.getLogger("scraper.search")
 
@@ -153,7 +153,7 @@ def _search_google_organic(
             continue
 
         # Estrai contatti
-        contacts = extract_contacts_from_text(combined)
+        contacts = extract_contacts(combined)
         raw.telefono = contacts.get("telefono")
         raw.email = contacts.get("email")
         if contacts.get("social_links"):
@@ -271,7 +271,7 @@ def _enrich_from_website(fetcher: Fetcher, raw: CentroRaw) -> None:
     text = soup.get_text(" ", strip=True)
 
     # Contatti dal sito
-    contacts = extract_contacts_from_text(text)
+    contacts = extract_contacts(text)
     if contacts.get("telefono") and not raw.telefono:
         raw.telefono = contacts["telefono"]
     if contacts.get("email") and not raw.email:

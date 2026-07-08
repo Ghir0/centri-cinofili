@@ -1,0 +1,857 @@
+[
+  {
+    "source": "OPES",
+    "codice_fiscale": "02978650907",
+    "nome": "SSD SCUOLA CINOFILIA OLBIA SRL",
+    "regione": "Sardegna",
+    "comune": "Olbia",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 40.9232659,
+      "lon": 9.5027442
+    },
+    "slug": "ssd-scuola-cinofilia-olbia-srl"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "04076560046",
+    "nome": "CENTRO CINOFILO CANE BLU",
+    "regione": "Piemonte",
+    "comune": "Piobesi D'Alba",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 44.7330015,
+      "lon": 7.985707
+    },
+    "slug": "centro-cinofilo-cane-blu"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90042800517",
+    "nome": "Toscana Cinofilia asd",
+    "regione": "Toscana",
+    "comune": "Montevarchi",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 43.5234999,
+      "lon": 11.5675911
+    },
+    "slug": "toscana-cinofilia-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90043540922",
+    "nome": "CENTRO CINOFILO ALCHIMYA A.S.D.",
+    "regione": "Sardegna",
+    "comune": "Carbonia",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 39.165332,
+      "lon": 8.527834
+    },
+    "slug": "centro-cinofilo-alchimya-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "91131560681",
+    "nome": "CENTRO CINOFILO PERFIDO ASD",
+    "regione": "Abruzzo",
+    "comune": "Manoppello",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.2577795,
+      "lon": 14.0599575
+    },
+    "slug": "centro-cinofilo-perfido-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92068490538",
+    "nome": "A.S.D. CENTRO CINOFILO GLI ETRUSCHI",
+    "regione": "Toscana",
+    "comune": "Grosseto",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.7751102,
+      "lon": 11.2878044
+    },
+    "slug": "asd-centro-cinofilo-gli-etruschi"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92070920464",
+    "nome": "ohana cinofilia e socialita'",
+    "regione": "Toscana",
+    "comune": "Capannori",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 43.8420391,
+      "lon": 10.5735254
+    },
+    "slug": "ohana-cinofilia-e-socialita"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "93322920237",
+    "nome": "SCUOLA CINOFILA VERONESE ASD",
+    "regione": "Veneto",
+    "comune": "Verona",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.4424977,
+      "lon": 10.9857377
+    },
+    "slug": "scuola-cinofila-veronese-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "94086550657",
+    "nome": "ACCADEMIA CINOFILA ASD",
+    "regione": "Campania",
+    "comune": "Pagani",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 40.7498877,
+      "lon": 14.6133234
+    },
+    "slug": "accademia-cinofila-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "94654310153",
+    "nome": "SottoSopra ASD - Centro Cinofilo",
+    "regione": "Lombardia",
+    "comune": "Monza",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.6395418,
+      "lon": 9.2788304
+    },
+    "slug": "sottosopra-asd---centro-cinofilo"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "95093020659",
+    "nome": "IL SORRISO ASSOCIAZIONE CINOFILIA",
+    "regione": "Campania",
+    "comune": "Mercato San Severino",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 40.7831498,
+      "lon": 14.7557301
+    },
+    "slug": "il-sorriso-associazione-cinofilia"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "95101460129",
+    "nome": "CambiaMente Attività Cinofile A.S.D.",
+    "regione": "Lombardia",
+    "comune": "Sumirago",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.7392252,
+      "lon": 8.7810037
+    },
+    "slug": "cambiamente-attivit-cinofile-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "02576900449",
+    "nome": "A.S.D. CRAZY DOG",
+    "regione": "Marche",
+    "comune": "Castignano",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.9326677,
+      "lon": 13.6224804
+    },
+    "slug": "asd-crazy-dog"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "03486900164",
+    "nome": "ALLDOGS TRAINING CENTER ASD",
+    "regione": "Lombardia",
+    "comune": "Trezzo Sull'Adda",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.6087178,
+      "lon": 9.5198437
+    },
+    "slug": "alldogs-training-center-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "04787780164",
+    "nome": "MORE THAN DOGS ASD DI PROMOZIONE SOCIALE",
+    "regione": "Lombardia",
+    "comune": "Cologno Al Serio",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.5752405,
+      "lon": 9.7123278
+    },
+    "slug": "more-than-dogs-asd-di-promozione-sociale"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90061130507",
+    "nome": "OTTOQUARANTOTTO DOG'S",
+    "regione": "Toscana",
+    "comune": "Orciano Pisano",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 43.494436,
+      "lon": 10.51151
+    },
+    "slug": "ottoquarantotto-dogs"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90064970958",
+    "nome": "SINIS DOG HUB",
+    "regione": "Sardegna",
+    "comune": "Cabras",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 39.9279284,
+      "lon": 8.4819274
+    },
+    "slug": "sinis-dog-hub"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "90145790565",
+    "nome": "A.S.D. LUDO DOG",
+    "regione": "Lazio",
+    "comune": "Monterosi",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.195823,
+      "lon": 12.308469
+    },
+    "slug": "asd-ludo-dog"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "91029870366",
+    "nome": "DOGS ON THE ROAD A.S.D.",
+    "regione": "Emilia-Romagna",
+    "comune": "Concordia Sulla Secchia",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 44.913174,
+      "lon": 10.983297
+    },
+    "slug": "dogs-on-the-road-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "91093600590",
+    "nome": "Joy Beach Agility Dog School Latina ASD",
+    "regione": "Lazio",
+    "comune": "Latina",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 41.4595261,
+      "lon": 13.0125912
+    },
+    "slug": "joy-beach-agility-dog-school-latina-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "91177780599",
+    "nome": "UNDERDOGS ATHLETIC LAB ASD",
+    "regione": "Lazio",
+    "comune": "Latina",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 41.4595261,
+      "lon": 13.0125912
+    },
+    "slug": "underdogs-athletic-lab-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92059080538",
+    "nome": "DOG VILLAGE GROSSETO ASD",
+    "regione": "Toscana",
+    "comune": "Monte Argentario",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.407352,
+      "lon": 11.1503838
+    },
+    "slug": "dog-village-grosseto-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92080360131",
+    "nome": "DOGHAUS CENTRO CINOTECNICO A.S.D.",
+    "regione": "Lombardia",
+    "comune": "Calolziocorte",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.8014719,
+      "lon": 9.4329787
+    },
+    "slug": "doghaus-centro-cinotecnico-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92158570900",
+    "nome": "DOGWARTS",
+    "regione": "Sardegna",
+    "comune": "Ossi",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 40.67486,
+      "lon": 8.591714
+    },
+    "slug": "dogwarts"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "93052260275",
+    "nome": "DOG JESOLO A.S.D.",
+    "regione": "Veneto",
+    "comune": "Jesolo",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.5347443,
+      "lon": 12.6538449
+    },
+    "slug": "dog-jesolo-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "94286550481",
+    "nome": "DOGGIE EDUCATION",
+    "regione": "Toscana",
+    "comune": "Firenze",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 43.7697955,
+      "lon": 11.2556404
+    },
+    "slug": "doggie-education"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "95099660128",
+    "nome": "DONKEY DOG ASSOCIAZIONE DI PROMOZIONE SOCIALE",
+    "regione": "Lombardia",
+    "comune": "Morazzone",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.7649609,
+      "lon": 8.8315
+    },
+    "slug": "donkey-dog-associazione-di-promozione-sociale"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "96121190225",
+    "nome": "REBUFF DOGS IN PROGRESS",
+    "regione": "Trentino-Alto Adige/Südtirol",
+    "comune": "Trento",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 46.1029536,
+      "lon": 11.1297425
+    },
+    "slug": "rebuff-dogs-in-progress"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "96413640580",
+    "nome": "CENTRAL DOG SCHOOL ASD",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "central-dog-school-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "97009260171",
+    "nome": "DOG ENERGY IN THE CITY ASD",
+    "regione": "Lombardia",
+    "comune": "Brescia",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 45.7795805,
+      "lon": 10.425873
+    },
+    "slug": "dog-energy-in-the-city-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "92026570587",
+    "nome": "A.S.DILETTANTISTICA CANE CAMPIONE",
+    "regione": "Lazio",
+    "comune": "Riano",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 42.100122,
+      "lon": 12.505675
+    },
+    "slug": "asdilettantistica-cane-campione"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "95130650633",
+    "nome": "CUORE DI CANE ASD",
+    "regione": "Campania",
+    "comune": "Napoli",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 40.8358846,
+      "lon": 14.2487679
+    },
+    "slug": "cuore-di-cane-asd"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "02788800064",
+    "nome": "A.S.D. HAKUNA MATATA - CANI E NON SOLO",
+    "regione": "Piemonte",
+    "comune": "Sezzadio",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 44.7555383,
+      "lon": 8.5955767
+    },
+    "slug": "asd-hakuna-matata---cani-e-non-solo"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "97695840583",
+    "nome": "A.S.D. CENTRO DI PSISCOLOGIA CANINA DI ROMA",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "asd-centro-di-psiscologia-canina-di-roma"
+  },
+  {
+    "source": "OPES",
+    "codice_fiscale": "97961020589",
+    "nome": "A.S.D. UN LAVORO DA CANI",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "opes"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "asd-un-lavoro-da-cani"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "17164961009",
+    "nome": "ACCADEMIA ITALIANA CANI SALVATAGGIO E SOCCORSO ASD ODV",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "accademia-italiana-cani-salvataggio-e-soccorso-asd-odv"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "01194360572",
+    "nome": "EDUCATAMENTE CANE ASD",
+    "regione": "Lazio",
+    "comune": "Castel Sant'Angelo",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.9031178,
+      "lon": 12.4663427
+    },
+    "slug": "educatamente-cane-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "91014030919",
+    "nome": "ASDPS Parla col Cane",
+    "regione": "Sardegna",
+    "comune": "Girasole",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 39.9517192,
+      "lon": 9.6619603
+    },
+    "slug": "asdps-parla-col-cane"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "93117980610",
+    "nome": "CANE RANDAGIO ASD",
+    "regione": "Campania",
+    "comune": "Caserta",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.2035193,
+      "lon": 14.1168624
+    },
+    "slug": "cane-randagio-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "02789900228",
+    "nome": "APU DOG A.S.D.",
+    "regione": "Trentino-Alto Adige/Südtirol",
+    "comune": "Sant'Orsola Terme",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 46.1117144,
+      "lon": 11.2928558
+    },
+    "slug": "apu-dog-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "03710590237",
+    "nome": "ARILICA DOGS ASD",
+    "regione": "Veneto",
+    "comune": "Peschiera Del Garda",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 45.4391576,
+      "lon": 10.6803955
+    },
+    "slug": "arilica-dogs-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "07360920727",
+    "nome": "CENTRO CINOFILO DOG HERO A.S.D.",
+    "regione": "Puglia",
+    "comune": "Gioia Del Colle",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 40.796728,
+      "lon": 16.92359
+    },
+    "slug": "centro-cinofilo-dog-hero-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "16929671002",
+    "nome": "OHMYDOG| S.S.D.R.L.",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "ohmydog-ssdrl"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "90098610588",
+    "nome": "ASD DOGSOUT",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "asd-dogsout"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "93504970729",
+    "nome": "A.S.D. FOLLOW THE DOG",
+    "regione": "Puglia",
+    "comune": "Bitetto",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.0414078,
+      "lon": 16.7486991
+    },
+    "slug": "asd-follow-the-dog"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "94649210153",
+    "nome": "MY DOG'S TEAM ASD",
+    "regione": "Lombardia",
+    "comune": "Vedano Al Lambro",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 45.611508,
+      "lon": 9.2750718
+    },
+    "slug": "my-dogs-team-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "97801320587",
+    "nome": "A.S.D. MANU DOG CAMP",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "asd-manu-dog-camp"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "97812110589",
+    "nome": "OBLADI' OBLADOG SSD A R.L.",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "obladi-obladog-ssd-a-rl"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "97966040582",
+    "nome": "A.S.DILETTANTISTICA ITALIAN DOG",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "asdilettantistica-italian-dog"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "12963540013",
+    "nome": "ASCINOFILIA SSD SRL",
+    "regione": "Piemonte",
+    "comune": "Pancalieri",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 44.833441,
+      "lon": 7.585924
+    },
+    "slug": "ascinofilia-ssd-srl"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "91034290808",
+    "nome": "A.S.D. CENTRO CINOFILO SPORTHUND",
+    "regione": "Calabria",
+    "comune": "Anoia",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 38.448655,
+      "lon": 16.0610791
+    },
+    "slug": "asd-centro-cinofilo-sporthund"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "91078230553",
+    "nome": "CENTRO CINOFILO TERNANO ASD",
+    "regione": "Umbria",
+    "comune": "Terni",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 42.6539486,
+      "lon": 12.4396528
+    },
+    "slug": "centro-cinofilo-ternano-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "92126080800",
+    "nome": "KENA'S HOUSE CENTRO CINOFILO ASD",
+    "regione": "Calabria",
+    "comune": "Reggio Di Calabria",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 38.1035389,
+      "lon": 15.6397556
+    },
+    "slug": "kenas-house-centro-cinofilo-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "95653330019",
+    "nome": "CAMPO BASE CENTRO CINOFILO ASD",
+    "regione": "Piemonte",
+    "comune": "Grugliasco",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 45.068046,
+      "lon": 7.57762
+    },
+    "slug": "campo-base-centro-cinofilo-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "96493170581",
+    "nome": "ASD CENTRO UNITA' CINOFILE SALVATAGGIO IN ACQUA",
+    "regione": "Lazio",
+    "comune": "Canale Monterano",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 42.136043,
+      "lon": 12.1030665
+    },
+    "slug": "asd-centro-unita-cinofile-salvataggio-in-acqua"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "96606320586",
+    "nome": "A TUTTA ZAMPA - SCUOLA DI FORMAZIONE - CENTRO CINOFILO A.S.D.",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "a-tutta-zampa---scuola-di-formazione---centro-cinofilo-asd"
+  },
+  {
+    "source": "ASC",
+    "codice_fiscale": "97922750589",
+    "nome": "CENTRO CINOFILO ROMA NORD - A.S.D.",
+    "regione": "Lazio",
+    "comune": "Roma",
+    "affiliazioni": [
+      "asc"
+    ],
+    "coordinate_gps": {
+      "lat": 41.8933203,
+      "lon": 12.4829321
+    },
+    "slug": "centro-cinofilo-roma-nord---asd"
+  }
+]
