@@ -27,6 +27,21 @@ export function MethodologyGuide() {
       icona: "🧠",
     },
     {
+      nome: "Etologico",
+      slug: "etologico",
+      descrizione:
+        "L'approccio etologico studia il cane attraverso la lente della biologia comportamentale — osservando i pattern istintivi, i segnali di comunicazione specie-specifici e le dinamiche sociali naturali. L'educatore etologico interpreta il comportamento canino nel suo contesto evolutivo, lavorando con — e non contro — la natura del cane.",
+      principi: [
+        "Osservazione del comportamento spontaneo prima di intervenire",
+        "Interventi basati sui pattern comportamentali naturali della specie",
+        "Rispetto dell'etogramma canino: ogni razza ha predisposizioni diverse",
+        "Ambiente arricchito come strumento educativo primario",
+      ],
+      adattoA:
+        "Proprietari curiosi di capire il 'perché' dietro ogni comportamento. Particolarmente utile per cani con problemi legati all'istinto (predatorio, territoriale) o per chi vuole una convivenza basata sulla comprensione reciproca.",
+      icona: "🔬",
+    },
+    {
       nome: "Gentile",
       slug: "gentile",
       descrizione:
@@ -55,6 +70,21 @@ export function MethodologyGuide() {
       adattoA:
         "Cani da lavoro, sport cinofili ad alta competizione, razze selezionate per compiti specifici (pastore, guardiania). Meno indicato per cani da compagnia o soggetti sensibili, dove il rischio di effetti collaterali emotivi è maggiore.",
       icona: "⚡",
+    },
+    {
+      nome: "Misto",
+      slug: "misto",
+      descrizione:
+        "L'approccio misto combina tecniche ed elementi da più scuole metodologiche, adattando il metodo al singolo cane e alla situazione specifica. È una scelta pragmatica: l'istruttore attinge al rinforzo positivo per l'apprendimento di base, ma può integrare correzioni mirate in contesti dove il solo premio non basta.",
+      principi: [
+        "Flessibilità metodologica: il metodo si adatta al cane, non viceversa",
+        "Integrazione di tecniche gentili e correzioni tradizionali a seconda del contesto",
+        "Valutazione caso per caso: ogni binomio uomo-cane è diverso",
+        "Pragmatismo: l'obiettivo è il risultato, con il massimo benessere possibile",
+      ],
+      adattoA:
+        "Cani con esigenze particolari che non rispondono a un singolo approccio. Utile in contesti sportivi dove serve precisione, ma anche in riabilitazione comportamentale. Richiede un istruttore molto esperto che sappia quando e come cambiare registro.",
+      icona: "🎯",
     },
     {
       nome: "Non Specificato",
@@ -86,7 +116,7 @@ export function MethodologyGuide() {
           Non tutte le scuole di pensiero sono uguali. La metodologia educativa è il
           fondamento di ogni percorso — definisce come il cane imparerà, che tipo di
           relazione costruirete e quale sarà il suo benessere emotivo durante
-          l'addestramento. Ecco cosa distingue i quattro approcci principali.
+          l'addestramento. Ecco cosa distingue i sei approcci principali.
         </p>
       </div>
 
