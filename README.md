@@ -31,6 +31,27 @@ Ogni scheda include:
 
 ---
 
+## Database e Setup Supabase
+
+Il progetto si appoggia su Supabase (PostgreSQL) con estensione geografica **PostGIS** per il calcolo delle distanze e la visualizzazione su mappa.
+
+### 1. Requisiti Database
+Assicurarsi che l'estensione PostGIS sia abilitata nel proprio progetto Supabase (attivabile da *Database → Extensions* oppure tramite la prima migrazione).
+
+### 2. Esecuzione delle Migrazioni
+I file SQL per impostare lo schema, le tassonomie e le regole di sicurezza si trovano nella cartella [`supabase/migrations/`](./supabase/migrations/) e vanno eseguiti nell'SQL Editor di Supabase nel seguente ordine:
+
+1. `00001_schema_iniziale.sql`  
+   Abilita PostGIS, crea le tabelle geografiche (regioni, province), le tabelle di lookup (metodologie, discipline, infrastrutture, affiliazioni), la tabella principale `centri` (con coordinate geografiche, indici spaziali e full-text) e le junction table per le relazioni molti-a-molti.
+2. `00002_seed_lookup.sql`  
+   Popola le regioni italiane, le province e le tassonomie cinofile di base.
+3. `20250619_add_enrichment_columns.sql`  
+   Aggiunge le colonne denormalizzate di arricchimento (`discipline`, `metodologie`, `infrastrutture`) per query rapide sul catalogo.
+4. `20261123_rls_junction_and_lookup.sql`  
+   Configura la Row Level Security (RLS) su tutte le tabelle ponte, garantendo accesso in sola lettura per le chiavi pubbliche (`anon`) e riservando le scritture al ruolo di servizio (`service_role`).
+
+---
+
 ## Avvio in Locale
 
 ### Prerequisiti
