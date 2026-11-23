@@ -1,0 +1,3 @@
+-- Trigger redeploy per rigenerare rotte statiche generateStaticParams
+-- Bau Academy inserito (ID 221)
+-- Corretti slug dei 4 centri con caratteri speciali (ID 129, 145, 151, 154)
