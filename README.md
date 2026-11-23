@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Centri Cinofili Italia
 
-## Getting Started
+> Registro nazionale aperto e indipendente dei centri educativi cinofili in Italia.  
+> Online su: **[https://www.centri-cinofili.it](https://www.centri-cinofili.it)**
 
-First, run the development server:
+---
 
+## Il Progetto
+
+Trovare informazioni chiare su come lavorano realmente i centri cinofili sul territorio italiano è spesso complicato: siti web datati, pagine social non aggiornate o descrizioni generiche rendono difficile per i proprietari di cani orientarsi e confrontare le strutture.
+
+**Centri Cinofili Italia** nasce come anagrafe aperta e gratuita con l'obiettivo di fare trasparenza nel settore, permettendo di filtrare e consultare i centri non solo per posizione geografica o disciplina, ma soprattutto per **metodologia educativa dichiarata** (cognitivo-relazionale, gentile, tradizionale/utilitaristico, etologico, misto).
+
+Ogni scheda include:
+- Metodo educativo adottato e descrizione dell'approccio
+- Attività e discipline praticate (puppy class, agility, obedience, recupero comportamentale, ecc.)
+- Strutture del campo (indoor, recinzione, illuminazione, aree socializzazione)
+- Contatti diretti (telefono, email, sito web, canali social)
+- Posizione geolocalizzata su mappa interattiva (OpenStreetMap / Leaflet)
+- Badge di stato (**Verificato** / **Non verificato**) per distinguere i dati importati da registri pubblici rispetto a quelli confermati o aggiornati direttamente dai responsabili del centro.
+
+---
+
+## Stack Tecnologico
+
+- **Framework**: [Next.js](https://nextjs.org) (App Router, Server Components, TypeScript)
+- **Styling**: Tailwind CSS v4
+- **Database**: [Supabase](https://supabase.com) (PostgreSQL + estensione PostGIS per geolocalizzazione e query spaziali)
+- **Mappe**: Leaflet / React-Leaflet su cartografia OpenStreetMap
+- **SEO & Dati strutturati**: Schema.org (`DogTrainer`), OpenGraph, Sitemap dinamica e percorsi pre-renderizzati
+
+---
+
+## Avvio in Locale
+
+### Prerequisiti
+- Node.js 20+
+- Un'istanza o progetto Supabase con PostGIS abilitato
+
+### 1. Clonare il repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Ghir0/centri-cinofili.git
+cd centri-cinofili
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Configurare le variabili d'ambiente
+Creare un file `.env.local` nella root del progetto:
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Avviare il server di sviluppo
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+L'applicazione sarà accessibile all'indirizzo [http://localhost:3000](http://localhost:3000).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Contribuire, Segnalazioni e Rivendicazioni
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Il portale è aperto e a disposizione della community cinofila.
+- Per richiedere la **rivendicazione gratuita** di una scheda esistente (assegnazione del badge *Verificato*)
+- Per segnalare **nuovi centri** non ancora censiti
+- Per correzioni di dati o rimozione di attività cessate
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+È possibile utilizzare l'apposito pulsante presente sul portale ([centri-cinofili.it](https://www.centri-cinofili.it)) oppure aprire una segnalazione/pull request su questo repository.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licenza
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I dati e il codice sorgente sono rilasciati con finalità aperte per la consultazione pubblica.
