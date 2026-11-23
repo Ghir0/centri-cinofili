@@ -94,4 +94,5 @@ Il portale è aperto e a disposizione della community cinofila.
 
 ## Licenza
 
-I dati e il codice sorgente sono rilasciati con finalità aperte per la consultazione pubblica.
+- **Codice sorgente**: [MIT](./LICENSE) — puoi usarlo, modificarlo e ridistribuirlo liberamente, anche commercialmente, mantenendo l'avviso di copyright.
+- **Dati** (anagrafica, metodologie, discipline, infrastrutture, affiliazioni): [CC BY 4.0](./LICENSE-DATA.md) — puoi riusarli e ridistribuirli citando la fonte con un link a [centri-cinofili.it](https://www.centri-cinofili.it).
